@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mercato - FantaLega</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="logo-icon">⚽</span>
+            <span>FantaLega</span>
+        </div>
+        
+        <button class="nav-toggle" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <ul class="nav-menu">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="rosa.html">La mia rosa</a></li>
+            <li><a href="formazione.html">Formazione</a></li>
+            <li><a href="calendario.html">Calendario</a></li>
+            <li><a href="classifica.html">Classifica</a></li>
+            <li><a href="mercato.html" class="active">Mercato</a></li>
+        </ul>
+        
+        <div class="nav-user">
+            <span class="user-credits">💰 285</span>
+            <div class="user-avatar" title="FC Campioni">FC</div>
+            <a href="index.html" class="logout-btn">Esci</a>
+        </div>
+    </nav>
+    <div class="page-container">
+        <header class="page-header">
+            <div>
+                <h1>Mercato</h1>
+                <p>Sessione aperta fino a <strong>Venerdì 25 Apr, 18:00</strong></p>
+            </div>
+            <div class="market-balance">
+                <span class="balance-label">Crediti disponibili</span>
+                <span class="balance-value">💰 285</span>
+            </div>
+        </header>
+        <!-- Market Tabs -->
+        <div class="market-tabs">
+            <button class="market-tab active" data-tab="svincolati">Svincolati</button>
+            <button class="market-tab" data-tab="aste">Aste attive</button>
+            <button class="market-tab" data-tab="offerte">Le mie offerte</button>
+            <button class="market-tab" data-tab="trasferimenti">Trasferimenti</button>
+        </div>
+        <!-- Svincolati Section -->
+        <section class="market-section active" id="svincolati">
+            <div class="market-controls">
+                <div class="search-box">
+                    <input type="text" id="market-search" placeholder="Cerca giocatore...">
+                </div>
+                <div class="market-filters">
+                    <select id="role-filter">
+                        <option value="">Tutti i ruoli</option>
+                        <option value="P">Portieri</option>
+                        <option value="D">Difensori</option>
+                        <option value="C">Centrocampisti</option>
+                        <option value="A">Attaccanti</option>
+                    </select>
+                    <select id="team-filter">
+                        <option value="">Tutte le squadre</option>
+                        <option value="Inter">Inter</option>
+                        <option value="Milan">Milan</option>
+                        <option value="Juventus">Juventus</option>
+                        <option value="Napoli">Napoli</option>
+                        <option value="Roma">Roma</option>
+                        <option value="Lazio">Lazio</option>
+                        <option value="Atalanta">Atalanta</option>
+                        <option value="Fiorentina">Fiorentina</option>
+                    </select>
+                    <select id="price-filter">
+                        <option value="">Qualsiasi prezzo</option>
+                        <option value="0-10">0-10 crediti</option>
+                        <option value="10-20">10-20 crediti</option>
+                        <option value="20-30">20-30 crediti</option>
+                        <option value="30+">30+ crediti</option>
+                    </select>
+                </div>
+            </div>
+            <div class="players-market-grid">
+                <!-- Player Card 1 -->
+                <div class="market-player-card">
+                    <div class="player-card-header">
+                        <span class="role-badge role-a">A</span>
+                        <span class="player-value">💰 28</span>
+                    </div>
+                    <div class="player-card-body">
+                        <h3 class="player-name">Retegui</h3>
+                        <span class="player-team">Atalanta</span>
+                        <div class="player-stats">
+                            <div class="stat">
+                                <span class="stat-value">6.42</span>
+                                <span class="stat-label">Media</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">7</span>
+                                <span class="stat-label">Gol</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">12/14</span>
+                                <span class="stat-label">Pres.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="player-card-actions">
+                        <button class="btn btn-primary btn-small">Fai offerta</button>
+                    </div>
+                </div>
+                <!-- Player Card 2 -->
+                <div class="market-player-card">
+                    <div class="player-card-header">
+                        <span class="role-badge role-c">C</span>
+                        <span class="player-value">💰 22</span>
+                    </div>
+                    <div class="player-card-body">
+                        <h3 class="player-name">Ederson</h3>
+                        <span class="player-team">Atalanta</span>
+                        <div class="player-stats">
+                            <div class="stat">
+                                <span class="stat-value">6.28</span>
+                                <span class="stat-label">Media</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">4</span>
+                                <span class="stat-label">Gol</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">14/14</span>
+                                <span class="stat-label">Pres.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="player-card-actions">
+                        <button class="btn btn-primary btn-small">Fai offerta</button>
+                    </div>
+                </div>
+                <!-- Player Card 3 -->
+                <div class="market-player-card">
+                    <div class="player-card-header">
+                        <span class="role-badge role-d">D</span>
+                        <span class="player-value">💰 15</span>
+                    </div>
+                    <div class="player-card-body">
+                        <h3 class="player-name">Scalvini</h3>
+                        <span class="player-team">Atalanta</span>
+                        <div class="player-stats">
+                            <div class="stat">
+                                <span class="stat-value">6.12</span>
+                                <span class="stat-label">Media</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">1</span>
+                                <span class="stat-label">Gol</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">10/14</span>
+                                <span class="stat-label">Pres.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="player-card-actions">
+                        <button class="btn btn-primary btn-small">Fai offerta</button>
+                    </div>
+                </div>
+                <!-- Player Card 4 -->
+                <div class="market-player-card">
+                    <div class="player-card-header">
+                        <span class="role-badge role-c">C</span>
+                        <span class="player-value">💰 18</span>
+                    </div>
+                    <div class="player-card-body">
+                        <h3 class="player-name">Colpani</h3>
+                        <span class="player-team">Fiorentina</span>
+                        <div class="player-stats">
+                            <div class="stat">
+                                <span class="stat-value">6.18</span>
+                                <span class="stat-label">Media</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">3</span>
+                                <span class="stat-label">Gol</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">13/14</span>
+                                <span class="stat-label">Pres.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="player-card-actions">
+                        <button class="btn btn-primary btn-small">Fai offerta</button>
+                    </div>
+                </div>
+                <!-- Player Card 5 -->
+                <div class="market-player-card">
+                    <div class="player-card-header">
+                        <span class="role-badge role-a">A</span>
+                        <span class="player-value">💰 24</span>
+                    </div>
+                    <div class="player-card-body">
+                        <h3 class="player-name">Kean</h3>
+                        <span class="player-team">Fiorentina</span>
+                        <div class="player-stats">
+                            <div class="stat">
+                                <span class="stat-value">6.35</span>
+                                <span class="stat-label">Media</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">8</span>
+                                <span class="stat-label">Gol</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">14/14</span>
+                                <span class="stat-label">Pres.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="player-card-actions">
+                        <button class="btn btn-primary btn-small">Fai offerta</button>
+                    </div>
+                </div>
+                <!-- Player Card 6 -->
+                <div class="market-player-card">
+                    <div class="player-card-header">
+                        <span class="role-badge role-p">P</span>
+                        <span class="player-value">💰 10</span>
+                    </div>
+                    <div class="player-card-body">
+                        <h3 class="player-name">Carnesecchi</h3>
+                        <span class="player-team">Atalanta</span>
+                        <div class="player-stats">
+                            <div class="stat">
+                                <span class="stat-value">6.08</span>
+                                <span class="stat-label">Media</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">-11</span>
+                                <span class="stat-label">Gol sub.</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">14/14</span>
+                                <span class="stat-label">Pres.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="player-card-actions">
+                        <button class="btn btn-primary btn-small">Fai offerta</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Aste Attive Section -->
+        <section class="market-section" id="aste">
+            <div class="auctions-list">
+                <div class="auction-card">
+                    <div class="auction-player">
+                        <span class="role-badge role-a">A</span>
+                        <div class="auction-player-info">
+                            <h3>Retegui</h3>
+                            <span class="player-team">Atalanta</span>
+                        </div>
+                    </div>
+                    <div class="auction-details">
+                        <div class="current-bid">
+                            <span class="bid-label">Offerta attuale</span>
+                            <span class="bid-value">💰 32</span>
+                            <span class="bidder">Milan Magic</span>
+                        </div>
+                        <div class="auction-timer">
+                            <span class="timer-label">Termina tra</span>
+                            <span class="timer-value">2h 34m</span>
+                        </div>
+                    </div>
+                    <div class="auction-actions">
+                        <input type="number" min="33" value="33" class="bid-input">
+                        <button class="btn btn-primary">Rilancia</button>
+                    </div>
+                </div>
+                <div class="auction-card your-bid">
+                    <div class="auction-player">
+                        <span class="role-badge role-c">C</span>
+                        <div class="auction-player-info">
+                            <h3>Ederson</h3>
+                            <span class="player-team">Atalanta</span>
+                        </div>
+                    </div>
+                    <div class="auction-details">
+                        <div class="current-bid">
+                            <span class="bid-label">La tua offerta</span>
+                            <span class="bid-value highlight">💰 25</span>
+                            <span class="bidder winning">Miglior offerente</span>
+                        </div>
+                        <div class="auction-timer">
+                            <span class="timer-label">Termina tra</span>
+                            <span class="timer-value">5h 12m</span>
+                        </div>
+                    </div>
+                    <div class="auction-status">
+                        <span class="status-winning">🏆 Stai vincendo!</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- Offer Modal -->
+    <div class="modal" id="offer-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Fai un'offerta</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="offer-player-info">
+                    <span class="role-badge role-a">A</span>
+                    <div>
+                        <h4>Retegui</h4>
+                        <span>Atalanta • Quotazione: 28</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="offer-amount">La tua offerta</label>
+                    <input type="number" id="offer-amount" min="28" value="28">
+                    <span class="help-text">Offerta minima: 28 crediti</span>
+                </div>
+                <div class="modal-summary">
+                    <p>Crediti disponibili: <strong>285</strong></p>
+                    <p>Crediti dopo l'acquisto: <strong>257</strong></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-cancel">Annulla</button>
+                <button class="btn btn-primary">Conferma offerta</button>
+            </div>
+        </div>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formazione - FantaLega</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="logo-icon">⚽</span>
+            <span>FantaLega</span>
+        </div>
+        
+        <button class="nav-toggle" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <ul class="nav-menu">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="rosa.html">La mia rosa</a></li>
+            <li><a href="formazione.html" class="active">Formazione</a></li>
+            <li><a href="calendario.html">Calendario</a></li>
+            <li><a href="classifica.html">Classifica</a></li>
+            <li><a href="mercato.html">Mercato</a></li>
+        </ul>
+        
+        <div class="nav-user">
+            <span class="user-credits">💰 285</span>
+            <div class="user-avatar" title="FC Campioni">FC</div>
+            <a href="index.html" class="logout-btn">Esci</a>
+        </div>
+    </nav>
+    <div class="page-container">
+        <header class="page-header">
+            <div>
+                <h1>Schiera Formazione</h1>
+                <p>Giornata 15 - Scadenza: <strong class="deadline">Sabato 26 Apr, 15:00</strong></p>
+            </div>
+            <div class="formation-actions">
+                <button class="btn btn-secondary" id="reset-formation">Azzera</button>
+                <button class="btn btn-primary" id="save-formation">Salva formazione</button>
+            </div>
+        </header>
+        <div class="formation-container">
+            <!-- Formation Field -->
+            <section class="field-section">
+                <div class="formation-selector">
+                    <label for="formation-select">Modulo:</label>
+                    <select id="formation-select">
+                        <option value="3-4-3">3-4-3</option>
+                        <option value="3-5-2">3-5-2</option>
+                        <option value="4-3-3" selected>4-3-3</option>
+                        <option value="4-4-2">4-4-2</option>
+                        <option value="4-5-1">4-5-1</option>
+                        <option value="5-3-2">5-3-2</option>
+                        <option value="5-4-1">5-4-1</option>
+                    </select>
+                </div>
+                <div class="football-field">
+                    <!-- Goalkeeper -->
+                    <div class="field-row goalkeeper-row">
+                        <div class="player-slot" data-position="GK" data-role="P">
+                            <div class="slot-content filled">
+                                <span class="player-jersey">1</span>
+                                <span class="player-name">Sommer</span>
+                                <span class="player-team">INT</span>
+                            </div>
+                            <button class="remove-player" title="Rimuovi">×</button>
+                        </div>
+                    </div>
+                    <!-- Defenders -->
+                    <div class="field-row defenders-row">
+                        <div class="player-slot" data-position="DEF1" data-role="D">
+                            <div class="slot-content filled">
+                                <span class="player-jersey">2</span>
+                                <span class="player-name">Bastoni</span>
+                                <span class="player-team">INT</span>
+                            </div>
+                            <button class="remove-player" title="Rimuovi">×</button>
+                        </div>
+                        <div class="player-slot" data-position="DEF2" data-role="D">
+                            <div class="slot-content filled">
+                                <span class="player-jersey">3</span>
+                                <span class="player-name">Buongiorno</span>
+                                <span class="player-team">NAP</span>
+                            </div>
+                            <button class="remove-player" title="Rimuovi">×</button>
+                        </div>
+                        <div class="player-slot" data-position="DEF3" data-role="D">
+                            <div class="slot-content filled">
+                                <span class="player-jersey">4</span>
+                                <span class="player-name">Di Lorenzo</span>
+                                <span class="player-team">NAP</span>
+                            </div>
+                            <button class="remove-player" title="Rimuovi">×</button>
+                        </div>
+                        <div class="player-slot" data-position="DEF4" data-role="D">
+                            <div class="slot-content filled">
+                                <span class="player-jersey">5</span>
+                                <span class="player-name">Dimarco</span>
+                                <span class="player-team">INT</span>
+                            </div>
+                            <button class="remove-player" title="Rimuovi">×</button>
+                        </div>
+                    </div>
+                    <!-- Midfielders -->
+                    <div class="field-row midfielders-row">
+                        <div class="player-slot" data-position="MID1" data-role="C">
+                            <div class="slot-content filled">
+                                <span class="player-jersey">6</span>
+                                <span class="player-name">Barella</span>
+                                <span class="player-team">INT</span>
+                            </div>
+                            <button class="remove-player" title="Rimuovi">×</button>
+                        </div>
+                        <div class="player-slot" data-position="MID2" data-role="C">
+                            <div class="slot-content filled">
+                                <span class="player-jersey">7</span>
+                                <span class="player-name">Calhanoglu</span>
+                                <span class="player-team">INT</span>
+                            </div>
+                            <button class="remove-player" title="Rimuovi">×</button>
+                        </div>
+                        <div class="player-slot" data-position="MID3" data-role="C">
+                            <div class="slot-content empty">
+                                <span class="slot-placeholder">+</span>
+                                <span class="slot-role">CEN</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Forwards -->
+                    <div class="field-row forwards-row">
+                        <div class="player-slot" data-position="FWD1" data-role="A">
+                            <div class="slot-content filled">
+                                <span class="player-jersey">9</span>
+                                <span class="player-name">Lautaro</span>
+                                <span class="player-team">INT</span>
+                            </div>
+                            <button class="remove-player" title="Rimuovi">×</button>
+                        </div>
+                        <div class="player-slot" data-position="FWD2" data-role="A">
+                            <div class="slot-content empty">
+                                <span class="slot-placeholder">+</span>
+                                <span class="slot-role">ATT</span>
+                            </div>
+                        </div>
+                        <div class="player-slot" data-position="FWD3" data-role="A">
+                            <div class="slot-content filled">
+                                <span class="player-jersey">11</span>
+                                <span class="player-name">Thuram</span>
+                                <span class="player-team">INT</span>
+                            </div>
+                            <button class="remove-player" title="Rimuovi">×</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Bench -->
+                <div class="bench-section">
+                    <h3>Panchina</h3>
+                    <div class="bench-slots">
+                        <div class="bench-slot" data-position="BENCH1">
+                            <span class="bench-number">12</span>
+                            <div class="slot-content filled">
+                                <span class="player-name">Di Gregorio</span>
+                                <span class="role-badge role-p">P</span>
+                            </div>
+                        </div>
+                        <div class="bench-slot" data-position="BENCH2">
+                            <span class="bench-number">13</span>
+                            <div class="slot-content filled">
+                                <span class="player-name">Gatti</span>
+                                <span class="role-badge role-d">D</span>
+                            </div>
+                        </div>
+                        <div class="bench-slot" data-position="BENCH3">
+                            <span class="bench-number">14</span>
+                            <div class="slot-content filled">
+                                <span class="player-name">Lobotka</span>
+                                <span class="role-badge role-c">C</span>
+                            </div>
+                        </div>
+                        <div class="bench-slot" data-position="BENCH4">
+                            <span class="bench-number">15</span>
+                            <div class="slot-content empty">
+                                <span class="slot-placeholder">+</span>
+                            </div>
+                        </div>
+                        <div class="bench-slot" data-position="BENCH5">
+                            <span class="bench-number">16</span>
+                            <div class="slot-content empty">
+                                <span class="slot-placeholder">+</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Player Selection Panel -->
+            <aside class="player-selection-panel">
+                <h3>Giocatori disponibili</h3>
+                
+                <div class="panel-filters">
+                    <input type="text" class="panel-search" placeholder="Cerca...">
+                    <div class="panel-role-filters">
+                        <button class="role-filter active" data-role="all">Tutti</button>
+                        <button class="role-filter" data-role="P">P</button>
+                        <button class="role-filter" data-role="D">D</button>
+                        <button class="role-filter" data-role="C">C</button>
+                        <button class="role-filter" data-role="A">A</button>
+                    </div>
+                </div>
+                <ul class="available-players" id="available-players">
+                    <li class="available-player" data-role="C" data-name="Koopmeiners">
+                        <span class="role-badge role-c">C</span>
+                        <div class="player-info">
+                            <span class="player-name">Koopmeiners</span>
+                            <span class="player-team">JUV</span>
+                        </div>
+                        <span class="player-fv">7.12</span>
+                        <span class="player-status available">✓</span>
+                    </li>
+                    <li class="available-player" data-role="C" data-name="Reijnders">
+                        <span class="role-badge role-c">C</span>
+                        <div class="player-info">
+                            <span class="player-name">Reijnders</span>
+                            <span class="player-team">MIL</span>
+                        </div>
+                        <span class="player-fv">6.95</span>
+                        <span class="player-status available">✓</span>
+                    </li>
+                    <li class="available-player" data-role="C" data-name="Zielinski">
+                        <span class="role-badge role-c">C</span>
+                        <div class="player-info">
+                            <span class="player-name">Zielinski</span>
+                            <span class="player-team">INT</span>
+                        </div>
+                        <span class="player-fv">6.78</span>
+                        <span class="player-status available">✓</span>
+                    </li>
+                    <li class="available-player" data-role="A" data-name="Lukaku">
+                        <span class="role-badge role-a">A</span>
+                        <div class="player-info">
+                            <span class="player-name">Lukaku</span>
+                            <span class="player-team">NAP</span>
+                        </div>
+                        <span class="player-fv">7.88</span>
+                        <span class="player-status available">✓</span>
+                    </li>
+                    <li class="available-player" data-role="A" data-name="Morata">
+                        <span class="role-badge role-a">A</span>
+                        <div class="player-info">
+                            <span class="player-name">Morata</span>
+                            <span class="player-team">MIL</span>
+                        </div>
+                        <span class="player-fv">6.92</span>
+                        <span class="player-status available">✓</span>
+                    </li>
+                    <li class="available-player" data-role="A" data-name="Dovbyk">
+                        <span class="role-badge role-a">A</span>
+                        <div class="player-info">
+                            <span class="player-name">Dovbyk</span>
+                            <span class="player-team">ROM</span>
+                        </div>
+                        <span class="player-fv">7.15</span>
+                        <span class="player-status available">✓</span>
+                    </li>
+                    <li class="available-player unavailable" data-role="A" data-name="Vlahovic">
+                        <span class="role-badge role-a">A</span>
+                        <div class="player-info">
+                            <span class="player-name">Vlahovic</span>
+                            <span class="player-team">JUV</span>
+                        </div>
+                        <span class="player-fv">7.65</span>
+                        <span class="player-status injured">🤕</span>
+                    </li>
+                    <li class="available-player" data-role="C" data-name="Pellegrini">
+                        <span class="role-badge role-c">C</span>
+                        <div class="player-info">
+                            <span class="player-name">Pellegrini</span>
+                            <span class="player-team">ROM</span>
+                        </div>
+                        <span class="player-fv">6.55</span>
+                        <span class="player-status available">✓</span>
+                    </li>
+                    <li class="available-player" data-role="C" data-name="Ndoye">
+                        <span class="role-badge role-c">C</span>
+                        <div class="player-info">
+                            <span class="player-name">Ndoye</span>
+                            <span class="player-team">BOL</span>
+                        </div>
+                        <span class="player-fv">6.72</span>
+                        <span class="player-status available">✓</span>
+                    </li>
+                    <li class="available-player" data-role="D" data-name="Ndicka">
+                        <span class="role-badge role-d">D</span>
+                        <div class="player-info">
+                            <span class="player-name">Ndicka</span>
+                            <span class="player-team">ROM</span>
+                        </div>
+                        <span class="player-fv">6.02</span>
+                        <span class="player-status available">✓</span>
+                    </li>
+                    <li class="available-player unavailable" data-role="D" data-name="Theo Hernandez">
+                        <span class="role-badge role-d">D</span>
+                        <div class="player-info">
+                            <span class="player-name">Theo Hernandez</span>
+                            <span class="player-team">MIL</span>
+                        </div>
+                        <span class="player-fv">7.45</span>
+                        <span class="player-status injured">🤕</span>
+                    </li>
+                    <li class="available-player unavailable" data-role="D" data-name="Bremer">
+                        <span class="role-badge role-d">D</span>
+                        <div class="player-info">
+                            <span class="player-name">Bremer</span>
+                            <span class="player-team">JUV</span>
+                        </div>
+                        <span class="player-fv">6.35</span>
+                        <span class="player-status suspended">🟨</span>
+                    </li>
+                    <li class="available-player" data-role="P" data-name="Provedel">
+                        <span class="role-badge role-p">P</span>
+                        <div class="player-info">
+                            <span class="player-name">Provedel</span>
+                            <span class="player-team">LAZ</span>
+                        </div>
+                        <span class="player-fv">6.12</span>
+                        <span class="player-status available">✓</span>
+                    </li>
+                </ul>
+            </aside>
+        </div>
+    </div>
+    <!-- Modal for player selection -->
+    <div class="modal" id="player-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Seleziona giocatore</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Content dynamically populated -->
+            </div>
+        </div>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+</html>

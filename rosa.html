@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La mia Rosa - FantaLega</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation (same as dashboard) -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="logo-icon">⚽</span>
+            <span>FantaLega</span>
+        </div>
+        
+        <button class="nav-toggle" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <ul class="nav-menu">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="rosa.html" class="active">La mia rosa</a></li>
+            <li><a href="formazione.html">Formazione</a></li>
+            <li><a href="calendario.html">Calendario</a></li>
+            <li><a href="classifica.html">Classifica</a></li>
+            <li><a href="mercato.html">Mercato</a></li>
+        </ul>
+        
+        <div class="nav-user">
+            <span class="user-credits">💰 285</span>
+            <div class="user-avatar" title="FC Campioni">FC</div>
+            <a href="index.html" class="logout-btn">Esci</a>
+        </div>
+    </nav>
+    <div class="page-container">
+        <header class="page-header">
+            <h1>La mia Rosa</h1>
+            <div class="roster-stats">
+                <span class="roster-stat">
+                    <strong>25</strong> giocatori
+                </span>
+                <span class="roster-stat">
+                    <strong>285</strong> crediti disponibili
+                </span>
+            </div>
+        </header>
+        <!-- Filter/Search -->
+        <div class="roster-controls">
+            <div class="search-box">
+                <input type="text" id="player-search" placeholder="Cerca giocatore...">
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-role="all">Tutti</button>
+                <button class="filter-btn" data-role="P">Portieri</button>
+                <button class="filter-btn" data-role="D">Difensori</button>
+                <button class="filter-btn" data-role="C">Centrocampisti</button>
+                <button class="filter-btn" data-role="A">Attaccanti</button>
+            </div>
+        </div>
+        <!-- Roster Table -->
+        <div class="roster-table-container">
+            <table class="roster-table">
+                <thead>
+                    <tr>
+                        <th>Ruolo</th>
+                        <th>Giocatore</th>
+                        <th>Squadra</th>
+                        <th>Quotazione</th>
+                        <th>Media voto</th>
+                        <th>FV media</th>
+                        <th>Presenze</th>
+                        <th>Gol</th>
+                        <th>Stato</th>
+                    </tr>
+                </thead>
+                <tbody id="roster-body">
+                    <!-- Portieri -->
+                    <tr class="role-header">
+                        <td colspan="9">Portieri (3)</td>
+                    </tr>
+                    <tr data-role="P">
+                        <td><span class="role-badge role-p">P</span></td>
+                        <td class="player-name">Sommer</td>
+                        <td>Inter</td>
+                        <td>18</td>
+                        <td>6.21</td>
+                        <td>6.85</td>
+                        <td>14/14</td>
+                        <td>-12</td>
+                        <td><span class="status-badge available">✓</span></td>
+                    </tr>
+                    <tr data-role="P">
+                        <td><span class="role-badge role-p">P</span></td>
+                        <td class="player-name">Di Gregorio</td>
+                        <td>Juventus</td>
+                        <td>12</td>
+                        <td>6.05</td>
+                        <td>6.42</td>
+                        <td>12/14</td>
+                        <td>-10</td>
+                        <td><span class="status-badge available">✓</span></td>
+                    </tr>
+                    <tr data-role="P">
+                        <td><span class="role-badge role-p">P</span></td>
+                        <td class="player-name">Provedel</td>
+                        <td>Lazio</td>
+                        <td>8</td>
+                        <td>5.89</td>
+                        <td>6.12</td>
+                        <td>10/14</td>
+                        <td>-14</td>
+                        <td><span class="status-badge available">✓</span></td>
+                    </tr>
+                    <!-- Difensori -->
+                    <tr class="role-header">
+                        <td colspan="9">Difensori (8)</td>
+                    </tr>
+                    <tr data-role="D">
+                        <td><span class="role-badge role-d">D</span></td>
+                        <td class="player-name">Bastoni</td>
+                        <td>Inter</td>
+                        <td>22</td>
+                        <td>6.35</td>
+                        <td>7.12</td>
+                        <td>13/14</td>
+                        <td>2</td>
+                        <td><span class="status-badge available">✓</span></td>
+                    </tr>
+                    <tr data-role="D">
+                        <td><span class="role-badge role-d">D</span></td>
+                        <td class="player-name">Theo Hernandez</td>
+                        <td>Milan</td>
+                        <td>25</td>
+                        <td>6.28</td>
+                        <td>7.45</td>
+                        <td>12/14</td>
+                        <td>3</td>
+                        <td><span class="status-badge injured">🤕</span></td>
+                    </tr>
+                    <tr data-role="D">
+                        <td><span class="role-badge role-d">D</span></td>
+                        <td class="player-name">Di Lorenzo</td>
+                        <td>Napoli</td>
+                        <td>18</td>
+                        <td>6.15</td>
+                        <td>6.78</td>
+                        <td>14/14</td>
+                        <td>1</td>
+                        <td><span class="status-badge available">✓</span></td>
+                    </tr>
+                    <tr data-role="D">
+                        <td><span class="role-badge role-d">D</span></td>
+                        <td class="player-name">Bremer</td>
+                        <td>Juventus</td>
+                        <td>15</td>
+                        <td>6.08</td>
+                        <td>6.35</td>
+                        <td>11/14</td>
+                        <td>1</td>
+                        <td><span class="status-badge suspended">🟨</span></td>
+                    </tr>
+                    <tr data-role="D">
+                        <td><span class="role-badge role-d">D</span></td>
+                        <td class="player-name">Dimarco</td>
+                        <td>Inter</td>
+                        <td>20</td>
+                        <td>6.42</td>
+                        <td>7.85</td>
+                        <td>13/14</td>
+                        <td>4</td>
+                        <td><span class="status-badge available">✓</span></td>
+                    </tr>
+                    <tr data-role="D">
+                        <td><span class="role-badge role-d">D</span></td>
+                        <td class="player-name">Buongiorno</td>
+                        <td>Napoli</td>
+                        <td>14</td>
+                        <td>6.18</td>
+                        <td>6.52</td>
+                        <td>14/14</td>
+                        <td>0</td>
+                        <td><span class="status-badge available">✓</span></td>
+                    </tr>
+                    <tr data-role="D">
+                        <td><span class="role-badge role-d">D</span></td>
+                        <td class="player-name">Gatti</td>
+                        <td>Juventus</td>
+                        <td>10</td>
+                        <td>5.95</td>
+                        <td>6.15</td>
+                        <td>10/14</td>
+                        <td>0</td>
+                        <td><span class="status-badge available">✓</span></td>
+                    </tr>
+                    <tr data-role="D">
+                        <td><span class="role-badge role-d">D</span></td>
+                        <td class="player-name">Ndicka</td>
+                        <td>Roma</td>
+                        <td>8</td>
+                        <td>5.82</td>
+                        <td>6.02</td>
+                        <td>12/14</td>
+                        <td>0</td>
+                        <td><span class="status-badge available">✓</span></td>
+                    </tr>
+                    <!-- Centrocampisti -->
+                    <tr class="role-header">
+                        <td colspan="9">Centrocampisti (8)</td>
+                    </tr>
+                    <tr data-role="C">
+                        <td><span class="role-badge role-c">C</span></td>
+                        <td class="player-name">Barella</td>
+                        <td>Inter</td>
+                        <td>32</td>
+                        <td>6.52</td>
+                        <td>7.45</td>
+                        <td>14/14</td>
+                        <td>5</td>
+                        <td><span class="status-badge available">✓</span></td>
+                    </tr>
+                    <tr data-role="C">
+                        <td><span class="role-badge role-c">C</span></td>
+                        <td class="player-name">Koopmeiners</td>
+                        <td>Juventus</td>
+                        <td>28</td>
+                        <td>6.38</td>
+                        <td>7.12</td>
+                        <td>12/14</td>
+                        <td>4</td>
+                        <td><span class="status-badge available">✓</span></td>
+                    </tr>
+                    <tr data-role="C">
+                        <td><span class="role-badge role-c">C</span></td>
+                        <td class="player-name">Calhanoglu</td>
+                        <td>Inter</td>
+                        <td>30</td>
+                        <td>6.45</td>
+                        <td>7.82</td>
+                        <td>13/14</td>
+                        <td>6</td>
+                        <td><span class="status-badge available">✓</span></td>
+                    </tr>
+                    <tr data-role="C">
+                        <td><span class="role-badge role-c">C</span></td>
+                        <td class="player-name">Zielinski</td>
+                        <td>Inter</td>
+                        <td>18</td>
+                        <td>6.12</td>
+                        <td>6.78</td>
+                        <td>11/14</td>
+                        <td>3</td>
+                        <td><span class="status-badge available">✓</span></td>
+                    </tr>
+                    <tr data-role="C">
+                        <td><span class="role-badge role-c">C</span></td>
+                        <td class="player-name">Reijnders</td>
+                        <td>Milan</td>
+                        <td>22</td>
+                        <td>6.28</td>
+                        <td>6.95</td>
+                        <td>14/14</td>
+                        <td>4</td>
+                        <td><span class="status-badge available">✓</span></td>
+                    </tr>
+                    <tr data-role="C">
+                        <td><span class="role-badge role-c">C</span></td>
+                        <td class="player-name">Lobotka</td>
+                        <td>Napoli</td>
+                        <td>15</td>
+                        <td>6.22</td>
+                        <td>6.48</td>
+                        <td>14/14</td>
+                        <td>1</td>
+                        <td><span class="status-badge available">✓</span></td>
+                    </tr>
+                    <tr data-role="C">
+                        <td><span class="role-badge role-c">C</span></td>
+                        <td class="player-name">Pellegrini</td>
+                        <td>Roma</td>
+                        <td>16</td>
+                        <td>5.98</td>
+                        <td>6.55</td>
+                        <td>12/14</td>
+                        <td>2</td>
+                        <td><span class="status-badge available">✓</span></td>
+                    </tr>
+                    <tr data-role="C">
+                        <td><span class="role-badge role-c">C</span></td>
+                        <td class="player-name">Ndoye</td>
+                        <td>Bologna</td>
+                        <td>12</td>
+                        <td>6.05</td>
+                        <td>6.72</td>
+                        <td>13/14</td>
+                        <td>3</td>
+                        <td><span class="status-badge available">✓</span></td>
+                    </tr>
+                    <!-- Attaccanti -->
+                    <tr class="role-header">
+                        <td colspan="9">Attaccanti (6)</td>
+                    </tr>
+                    <tr data-role="A">
+                        <td><span class="role-badge role-a">A</span></td>
+                        <td class="player-name">Lautaro Martinez</td>
+                        <td>Inter</td>
+                        <td>42</td>
+                        <td>6.85</td>
+                        <td>8.42</td>
+                        <td>14/14</td>
+                        <td>14</td>
+                        <td><span class="status-badge available">✓</span></td>
+                    </tr>
+                    <tr data-role="A">
+                        <td><span class="role-badge role-a">A</span></td>
+                        <td class="player-name">Vlahovic</td>
+                        <td>Juventus</td>
+                        <td>35</td>
+                        <td>6.48</td>
+                        <td>7.65</td>
+                        <td>12/14</td>
+                        <td>10</td>
+                        <td><span class="status-badge injured">🤕</span></td>
+                    </tr>
+                    <tr data-role="A">
+                        <td><span class="role-badge role-a">A</span></td>
+                        <td class="player-name">Lukaku</td>
+                        <td>Napoli</td>
+                        <td>32</td>
+                        <td>6.55</td>
+                        <td>7.88</td>
+                        <td>13/14</td>
+                        <td>11</td>
+                        <td><span class="status-badge available">✓</span></td>
+                    </tr>
+                    <tr data-role="A">
+                        <td><span class="role-badge role-a">A</span></td>
+                        <td class="player-name">Thuram</td>
+                        <td>Inter</td>
+                        <td>28</td>
+                        <td>6.42</td>
+                        <td>7.35</td>
+                        <td>14/14</td>
+                        <td>9</td>
+                        <td><span class="status-badge available">✓</span></td>
+                    </tr>
+                    <tr data-role="A">
+                        <td><span class="role-badge role-a">A</span></td>
+                        <td class="player-name">Morata</td>
+                        <td>Milan</td>
+                        <td>22</td>
+                        <td>6.18</td>
+                        <td>6.92</td>
+                        <td>11/14</td>
+                        <td>6</td>
+                        <td><span class="status-badge available">✓</span></td>
+                    </tr>
+                    <tr data-role="A">
+                        <td><span class="role-badge role-a">A</span></td>
+                        <td class="player-name">Dovbyk</td>
+                        <td>Roma</td>
+                        <td>25</td>
+                        <td>6.32</td>
+                        <td>7.15</td>
+                        <td>13/14</td>
+                        <td>8</td>
+                        <td><span class="status-badge available">✓</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Legend -->
+        <div class="roster-legend">
+            <h3>Legenda</h3>
+            <div class="legend-items">
+                <span class="legend-item"><span class="status-badge available">✓</span> Disponibile</span>
+                <span class="legend-item"><span class="status-badge injured">🤕</span> Infortunato</span>
+                <span class="legend-item"><span class="status-badge suspended">🟨</span> Squalificato</span>
+                <span class="legend-item"><strong>FV</strong> = Fantavoto (voto + bonus/malus)</span>
+            </div>
+        </div>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+</html>
