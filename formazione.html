@@ -1,352 +1,380 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formazione - FantaLega</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formazione - FantaLega</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .slot-content { cursor: pointer; }
+    .slot-content.selecting { border-color: var(--gold) !important; animation: pulse 0.8s infinite; }
+    @keyframes pulse {
+      0%, 100% { border-color: var(--gold); }
+      50% { border-color: transparent; }
+    }
+    .available-player.in-lineup { opacity: 0.35; pointer-events: none; }
+    .captain-controls { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+    .captain-btn {
+      font-size: 10px; padding: 2px 6px;
+      background: var(--bg4); border: 1px solid var(--border); border-radius: 4px;
+      color: var(--text2); cursor: pointer; font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; transition: all 0.1s;
+    }
+    .captain-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); }
+    .captain-badge-c { background: var(--gold); color: #000; }
+    .captain-badge-v { background: var(--bg4); color: var(--text2); border: 1px solid var(--border); }
+  </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-brand">
-            <span class="logo-icon">⚽</span>
-            <span>FantaLega</span>
-        </div>
-        
-        <button class="nav-toggle" aria-label="Menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        
-        <ul class="nav-menu">
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="rosa.html">La mia rosa</a></li>
-            <li><a href="formazione.html" class="active">Formazione</a></li>
-            <li><a href="calendario.html">Calendario</a></li>
-            <li><a href="classifica.html">Classifica</a></li>
-            <li><a href="mercato.html">Mercato</a></li>
-        </ul>
-        
-        <div class="nav-user">
-            <span class="user-credits">💰 285</span>
-            <div class="user-avatar" title="FC Campioni">FC</div>
-            <a href="index.html" class="logout-btn">Esci</a>
-        </div>
-    </nav>
-    <div class="page-container">
-        <header class="page-header">
-            <div>
-                <h1>Schiera Formazione</h1>
-                <p>Giornata 15 - Scadenza: <strong class="deadline">Sabato 26 Apr, 15:00</strong></p>
-            </div>
-            <div class="formation-actions">
-                <button class="btn btn-secondary" id="reset-formation">Azzera</button>
-                <button class="btn btn-primary" id="save-formation">Salva formazione</button>
-            </div>
-        </header>
-        <div class="formation-container">
-            <!-- Formation Field -->
-            <section class="field-section">
-                <div class="formation-selector">
-                    <label for="formation-select">Modulo:</label>
-                    <select id="formation-select">
-                        <option value="3-4-3">3-4-3</option>
-                        <option value="3-5-2">3-5-2</option>
-                        <option value="4-3-3" selected>4-3-3</option>
-                        <option value="4-4-2">4-4-2</option>
-                        <option value="4-5-1">4-5-1</option>
-                        <option value="5-3-2">5-3-2</option>
-                        <option value="5-4-1">5-4-1</option>
-                    </select>
-                </div>
-                <div class="football-field">
-                    <!-- Goalkeeper -->
-                    <div class="field-row goalkeeper-row">
-                        <div class="player-slot" data-position="GK" data-role="P">
-                            <div class="slot-content filled">
-                                <span class="player-jersey">1</span>
-                                <span class="player-name">Sommer</span>
-                                <span class="player-team">INT</span>
-                            </div>
-                            <button class="remove-player" title="Rimuovi">×</button>
-                        </div>
-                    </div>
-                    <!-- Defenders -->
-                    <div class="field-row defenders-row">
-                        <div class="player-slot" data-position="DEF1" data-role="D">
-                            <div class="slot-content filled">
-                                <span class="player-jersey">2</span>
-                                <span class="player-name">Bastoni</span>
-                                <span class="player-team">INT</span>
-                            </div>
-                            <button class="remove-player" title="Rimuovi">×</button>
-                        </div>
-                        <div class="player-slot" data-position="DEF2" data-role="D">
-                            <div class="slot-content filled">
-                                <span class="player-jersey">3</span>
-                                <span class="player-name">Buongiorno</span>
-                                <span class="player-team">NAP</span>
-                            </div>
-                            <button class="remove-player" title="Rimuovi">×</button>
-                        </div>
-                        <div class="player-slot" data-position="DEF3" data-role="D">
-                            <div class="slot-content filled">
-                                <span class="player-jersey">4</span>
-                                <span class="player-name">Di Lorenzo</span>
-                                <span class="player-team">NAP</span>
-                            </div>
-                            <button class="remove-player" title="Rimuovi">×</button>
-                        </div>
-                        <div class="player-slot" data-position="DEF4" data-role="D">
-                            <div class="slot-content filled">
-                                <span class="player-jersey">5</span>
-                                <span class="player-name">Dimarco</span>
-                                <span class="player-team">INT</span>
-                            </div>
-                            <button class="remove-player" title="Rimuovi">×</button>
-                        </div>
-                    </div>
-                    <!-- Midfielders -->
-                    <div class="field-row midfielders-row">
-                        <div class="player-slot" data-position="MID1" data-role="C">
-                            <div class="slot-content filled">
-                                <span class="player-jersey">6</span>
-                                <span class="player-name">Barella</span>
-                                <span class="player-team">INT</span>
-                            </div>
-                            <button class="remove-player" title="Rimuovi">×</button>
-                        </div>
-                        <div class="player-slot" data-position="MID2" data-role="C">
-                            <div class="slot-content filled">
-                                <span class="player-jersey">7</span>
-                                <span class="player-name">Calhanoglu</span>
-                                <span class="player-team">INT</span>
-                            </div>
-                            <button class="remove-player" title="Rimuovi">×</button>
-                        </div>
-                        <div class="player-slot" data-position="MID3" data-role="C">
-                            <div class="slot-content empty">
-                                <span class="slot-placeholder">+</span>
-                                <span class="slot-role">CEN</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Forwards -->
-                    <div class="field-row forwards-row">
-                        <div class="player-slot" data-position="FWD1" data-role="A">
-                            <div class="slot-content filled">
-                                <span class="player-jersey">9</span>
-                                <span class="player-name">Lautaro</span>
-                                <span class="player-team">INT</span>
-                            </div>
-                            <button class="remove-player" title="Rimuovi">×</button>
-                        </div>
-                        <div class="player-slot" data-position="FWD2" data-role="A">
-                            <div class="slot-content empty">
-                                <span class="slot-placeholder">+</span>
-                                <span class="slot-role">ATT</span>
-                            </div>
-                        </div>
-                        <div class="player-slot" data-position="FWD3" data-role="A">
-                            <div class="slot-content filled">
-                                <span class="player-jersey">11</span>
-                                <span class="player-name">Thuram</span>
-                                <span class="player-team">INT</span>
-                            </div>
-                            <button class="remove-player" title="Rimuovi">×</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- Bench -->
-                <div class="bench-section">
-                    <h3>Panchina</h3>
-                    <div class="bench-slots">
-                        <div class="bench-slot" data-position="BENCH1">
-                            <span class="bench-number">12</span>
-                            <div class="slot-content filled">
-                                <span class="player-name">Di Gregorio</span>
-                                <span class="role-badge role-p">P</span>
-                            </div>
-                        </div>
-                        <div class="bench-slot" data-position="BENCH2">
-                            <span class="bench-number">13</span>
-                            <div class="slot-content filled">
-                                <span class="player-name">Gatti</span>
-                                <span class="role-badge role-d">D</span>
-                            </div>
-                        </div>
-                        <div class="bench-slot" data-position="BENCH3">
-                            <span class="bench-number">14</span>
-                            <div class="slot-content filled">
-                                <span class="player-name">Lobotka</span>
-                                <span class="role-badge role-c">C</span>
-                            </div>
-                        </div>
-                        <div class="bench-slot" data-position="BENCH4">
-                            <span class="bench-number">15</span>
-                            <div class="slot-content empty">
-                                <span class="slot-placeholder">+</span>
-                            </div>
-                        </div>
-                        <div class="bench-slot" data-position="BENCH5">
-                            <span class="bench-number">16</span>
-                            <div class="slot-content empty">
-                                <span class="slot-placeholder">+</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- Player Selection Panel -->
-            <aside class="player-selection-panel">
-                <h3>Giocatori disponibili</h3>
-                
-                <div class="panel-filters">
-                    <input type="text" class="panel-search" placeholder="Cerca...">
-                    <div class="panel-role-filters">
-                        <button class="role-filter active" data-role="all">Tutti</button>
-                        <button class="role-filter" data-role="P">P</button>
-                        <button class="role-filter" data-role="D">D</button>
-                        <button class="role-filter" data-role="C">C</button>
-                        <button class="role-filter" data-role="A">A</button>
-                    </div>
-                </div>
-                <ul class="available-players" id="available-players">
-                    <li class="available-player" data-role="C" data-name="Koopmeiners">
-                        <span class="role-badge role-c">C</span>
-                        <div class="player-info">
-                            <span class="player-name">Koopmeiners</span>
-                            <span class="player-team">JUV</span>
-                        </div>
-                        <span class="player-fv">7.12</span>
-                        <span class="player-status available">✓</span>
-                    </li>
-                    <li class="available-player" data-role="C" data-name="Reijnders">
-                        <span class="role-badge role-c">C</span>
-                        <div class="player-info">
-                            <span class="player-name">Reijnders</span>
-                            <span class="player-team">MIL</span>
-                        </div>
-                        <span class="player-fv">6.95</span>
-                        <span class="player-status available">✓</span>
-                    </li>
-                    <li class="available-player" data-role="C" data-name="Zielinski">
-                        <span class="role-badge role-c">C</span>
-                        <div class="player-info">
-                            <span class="player-name">Zielinski</span>
-                            <span class="player-team">INT</span>
-                        </div>
-                        <span class="player-fv">6.78</span>
-                        <span class="player-status available">✓</span>
-                    </li>
-                    <li class="available-player" data-role="A" data-name="Lukaku">
-                        <span class="role-badge role-a">A</span>
-                        <div class="player-info">
-                            <span class="player-name">Lukaku</span>
-                            <span class="player-team">NAP</span>
-                        </div>
-                        <span class="player-fv">7.88</span>
-                        <span class="player-status available">✓</span>
-                    </li>
-                    <li class="available-player" data-role="A" data-name="Morata">
-                        <span class="role-badge role-a">A</span>
-                        <div class="player-info">
-                            <span class="player-name">Morata</span>
-                            <span class="player-team">MIL</span>
-                        </div>
-                        <span class="player-fv">6.92</span>
-                        <span class="player-status available">✓</span>
-                    </li>
-                    <li class="available-player" data-role="A" data-name="Dovbyk">
-                        <span class="role-badge role-a">A</span>
-                        <div class="player-info">
-                            <span class="player-name">Dovbyk</span>
-                            <span class="player-team">ROM</span>
-                        </div>
-                        <span class="player-fv">7.15</span>
-                        <span class="player-status available">✓</span>
-                    </li>
-                    <li class="available-player unavailable" data-role="A" data-name="Vlahovic">
-                        <span class="role-badge role-a">A</span>
-                        <div class="player-info">
-                            <span class="player-name">Vlahovic</span>
-                            <span class="player-team">JUV</span>
-                        </div>
-                        <span class="player-fv">7.65</span>
-                        <span class="player-status injured">🤕</span>
-                    </li>
-                    <li class="available-player" data-role="C" data-name="Pellegrini">
-                        <span class="role-badge role-c">C</span>
-                        <div class="player-info">
-                            <span class="player-name">Pellegrini</span>
-                            <span class="player-team">ROM</span>
-                        </div>
-                        <span class="player-fv">6.55</span>
-                        <span class="player-status available">✓</span>
-                    </li>
-                    <li class="available-player" data-role="C" data-name="Ndoye">
-                        <span class="role-badge role-c">C</span>
-                        <div class="player-info">
-                            <span class="player-name">Ndoye</span>
-                            <span class="player-team">BOL</span>
-                        </div>
-                        <span class="player-fv">6.72</span>
-                        <span class="player-status available">✓</span>
-                    </li>
-                    <li class="available-player" data-role="D" data-name="Ndicka">
-                        <span class="role-badge role-d">D</span>
-                        <div class="player-info">
-                            <span class="player-name">Ndicka</span>
-                            <span class="player-team">ROM</span>
-                        </div>
-                        <span class="player-fv">6.02</span>
-                        <span class="player-status available">✓</span>
-                    </li>
-                    <li class="available-player unavailable" data-role="D" data-name="Theo Hernandez">
-                        <span class="role-badge role-d">D</span>
-                        <div class="player-info">
-                            <span class="player-name">Theo Hernandez</span>
-                            <span class="player-team">MIL</span>
-                        </div>
-                        <span class="player-fv">7.45</span>
-                        <span class="player-status injured">🤕</span>
-                    </li>
-                    <li class="available-player unavailable" data-role="D" data-name="Bremer">
-                        <span class="role-badge role-d">D</span>
-                        <div class="player-info">
-                            <span class="player-name">Bremer</span>
-                            <span class="player-team">JUV</span>
-                        </div>
-                        <span class="player-fv">6.35</span>
-                        <span class="player-status suspended">🟨</span>
-                    </li>
-                    <li class="available-player" data-role="P" data-name="Provedel">
-                        <span class="role-badge role-p">P</span>
-                        <div class="player-info">
-                            <span class="player-name">Provedel</span>
-                            <span class="player-team">LAZ</span>
-                        </div>
-                        <span class="player-fv">6.12</span>
-                        <span class="player-status available">✓</span>
-                    </li>
-                </ul>
-            </aside>
-        </div>
+  <nav class="navbar">
+    <a href="dashboard.html" class="nav-brand"><span class="logo-icon">⚽</span>FantaLega</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="rosa.html">La mia rosa</a></li>
+      <li><a href="formazione.html" class="active">Formazione</a></li>
+      <li><a href="calendario.html">Calendario</a></li>
+      <li><a href="classifica.html">Classifica</a></li>
+      <li><a href="mercato.html">Mercato</a></li>
+    </ul>
+    <div class="nav-user">
+      <span class="user-credits">💰 —</span>
+      <div class="user-avatar">—</div>
+      <a href="#" class="logout-btn" id="logout-btn">Esci</a>
     </div>
-    <!-- Modal for player selection -->
-    <div class="modal" id="player-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Seleziona giocatore</h3>
-                <button class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <!-- Content dynamically populated -->
-            </div>
+  </nav>
+
+  <div class="page-container">
+    <header class="page-header">
+      <div>
+        <h1>Schiera Formazione</h1>
+        <p>Giornata <strong id="gd-label">—</strong></p>
+      </div>
+      <div style="display:flex; gap:10px;">
+        <button class="btn btn-secondary" id="reset-btn">↺ Azzera</button>
+        <button class="btn btn-primary" id="save-btn">💾 Salva</button>
+      </div>
+    </header>
+
+    <div class="formation-container">
+      <!-- Field -->
+      <div>
+        <div class="formation-selector">
+          <label>Modulo:</label>
+          <select id="formation-select">
+            <option value="3-4-3">3-4-3</option>
+            <option value="3-5-2">3-5-2</option>
+            <option value="4-3-3" selected>4-3-3</option>
+            <option value="4-4-2">4-4-2</option>
+            <option value="4-5-1">4-5-1</option>
+            <option value="5-3-2">5-3-2</option>
+            <option value="5-4-1">5-4-1</option>
+          </select>
+          <span style="font-size:12px; color:var(--text3); margin-left:8px;">Clicca uno slot per assegnare un giocatore</span>
         </div>
+
+        <div class="football-field" id="football-field"></div>
+
+        <!-- Bench -->
+        <div class="bench-section">
+          <h3>Panchina <span id="bench-count" style="color:var(--text3); font-weight:400;">(0/4)</span></h3>
+          <div class="bench-list" id="bench-list"></div>
+        </div>
+      </div>
+
+      <!-- Player Panel -->
+      <div class="player-panel">
+        <div class="panel-header">
+          <h3>Giocatori disponibili</h3>
+          <div class="role-filters">
+            <button class="role-filter active" data-role="all">Tutti</button>
+            <button class="role-filter" data-role="P">P</button>
+            <button class="role-filter" data-role="D">D</button>
+            <button class="role-filter" data-role="C">C</button>
+            <button class="role-filter" data-role="A">A</button>
+          </div>
+          <input type="text" class="panel-search" id="panel-search" placeholder="Cerca...">
+        </div>
+        <div class="available-players-list" id="available-players-list"></div>
+      </div>
     </div>
-    <script src="js/app.js"></script>
+  </div>
+
+  <script src="js/core.js"></script>
+  <script>
+    const session = Auth.requireAuth();
+    let team = Store.getTeam(session.userId);
+
+    UI.setNavUser(session, team);
+    document.getElementById('logout-btn').onclick = e => { e.preventDefault(); Auth.logout(); };
+    document.getElementById('nav-toggle').onclick = () => document.getElementById('nav-menu').classList.toggle('active');
+
+    document.getElementById('gd-label').textContent = team.currentMatchday;
+
+    const formations = {
+      '3-4-3': { D: 3, C: 4, A: 3 },
+      '3-5-2': { D: 3, C: 5, A: 2 },
+      '4-3-3': { D: 4, C: 3, A: 3 },
+      '4-4-2': { D: 4, C: 4, A: 2 },
+      '4-5-1': { D: 4, C: 5, A: 1 },
+      '5-3-2': { D: 5, C: 3, A: 2 },
+      '5-4-1': { D: 5, C: 4, A: 1 },
+    };
+
+    // State
+    let currentLineup = { ...team.lineup }; // slot -> playerId
+    let benchIds = [...(team.bench || [])];
+    let captainId = team.captainId;
+    let viceCaptainId = team.viceCaptainId;
+    let selectedSlot = null; // { slotKey, role }
+    let currentFormation = team.formation || '4-3-3';
+
+    const players = Store.getPlayersByIds(team.rosterIds || []);
+
+    // Set formation select
+    document.getElementById('formation-select').value = currentFormation;
+
+    function getSlotRoles(formation) {
+      const { D, C, A } = formations[formation];
+      const slots = [{ key: 'GK', role: 'P', label: 'POR' }];
+      for (let i = 1; i <= D; i++) slots.push({ key: `DEF${i}`, role: 'D', label: 'DIF' });
+      for (let i = 1; i <= C; i++) slots.push({ key: `MID${i}`, role: 'C', label: 'CEN' });
+      for (let i = 1; i <= A; i++) slots.push({ key: `ATT${i}`, role: 'A', label: 'ATT' });
+      return slots;
+    }
+
+    function getPlayerById(id) { return players.find(p => p.id === id); }
+
+    function getUsedPlayerIds() {
+      return new Set(Object.values(currentLineup).filter(Boolean));
+    }
+
+    function renderField() {
+      const formation = document.getElementById('formation-select').value;
+      currentFormation = formation;
+      const { D, C, A } = formations[formation];
+      const field = document.getElementById('football-field');
+
+      const rows = [
+        { label: 'ATT', role: 'A', count: A, prefix: 'ATT' },
+        { label: 'CEN', role: 'C', count: C, prefix: 'MID' },
+        { label: 'DIF', role: 'D', count: D, prefix: 'DEF' },
+        { label: 'POR', role: 'P', count: 1, prefix: '', single: 'GK' },
+      ];
+
+      field.innerHTML = rows.map(row => {
+        const slotKeys = row.single ? [row.single] : Array.from({ length: row.count }, (_, i) => `${row.prefix}${i + 1}`);
+        return `<div class="field-row">
+          ${slotKeys.map(key => {
+            const playerId = currentLineup[key];
+            const player = playerId ? getPlayerById(playerId) : null;
+            const isCap = player && captainId === player.id;
+            const isVice = player && viceCaptainId === player.id;
+            const isSelecting = selectedSlot && selectedSlot.key === key;
+            const role = row.role;
+            return `
+              <div class="player-slot" data-key="${key}" data-role="${role}">
+                ${player ? `
+                  <div class="slot-content filled${isSelecting ? ' selecting' : ''}" onclick="selectSlot('${key}', '${role}')">
+                    <span class="player-jersey">${player.name[0]}</span>
+                    <span class="player-name">${player.name.split(' ').pop()}</span>
+                    <span class="player-team">${player.team.slice(0, 3).toUpperCase()}</span>
+                  </div>
+                  <button class="remove-player" onclick="removeFromSlot('${key}')" title="Rimuovi">×</button>
+                  ${isCap ? `<div class="captain-badge captain-badge-c">C</div>` : ''}
+                  ${isVice ? `<div class="captain-badge captain-badge-v">V</div>` : ''}
+                ` : `
+                  <div class="slot-content empty${isSelecting ? ' selecting' : ''}" onclick="selectSlot('${key}', '${role}')">
+                    <span class="slot-placeholder">+</span>
+                    <span class="slot-role">${row.label}</span>
+                  </div>
+                `}
+              </div>`;
+          }).join('')}
+        </div>`;
+      }).join('');
+
+      renderBench();
+      renderAvailablePlayers();
+    }
+
+    function renderBench() {
+      const list = document.getElementById('bench-list');
+      const used = getUsedPlayerIds();
+      document.getElementById('bench-count').textContent = `(${benchIds.length}/4)`;
+
+      list.innerHTML = benchIds.map(id => {
+        const p = getPlayerById(id);
+        if (!p) return '';
+        const roleColors = { P: 'role-p', D: 'role-d', C: 'role-c', A: 'role-a' };
+        return `
+          <div class="bench-player" data-id="${p.id}">
+            <span class="role-badge ${roleColors[p.role]}">${p.role}</span>
+            <span>${p.name}</span>
+            <span style="font-size:11px; color:var(--text3);">${p.team}</span>
+            <button onclick="removeFromBench(${p.id})" style="background:none;border:none;color:var(--text3);cursor:pointer;padding:0;font-size:14px;">×</button>
+          </div>`;
+      }).join('') || '<span style="font-size:13px; color:var(--text3);">Nessun riserva. Clicca un giocatore nella lista per aggiungerlo in panchina.</span>';
+    }
+
+    function renderAvailablePlayers() {
+      const roleFilter = document.querySelector('.role-filter.active')?.dataset.role || 'all';
+      const search = (document.getElementById('panel-search')?.value || '').toLowerCase();
+      const used = getUsedPlayerIds();
+      const onBench = new Set(benchIds);
+
+      const list = document.getElementById('available-players-list');
+      const filtered = players.filter(p => {
+        if (roleFilter !== 'all' && p.role !== roleFilter) return false;
+        if (search && !p.name.toLowerCase().includes(search)) return false;
+        return true;
+      });
+
+      const roleColors = { P: 'role-p', D: 'role-d', C: 'role-c', A: 'role-a' };
+
+      list.innerHTML = filtered.map(p => {
+        const inLineup = used.has(p.id);
+        const inBench = onBench.has(p.id);
+        let extraClass = '';
+        let suffix = '';
+        if (inLineup) { extraClass = 'in-lineup'; suffix = ' <span style="color:var(--green); font-size:10px;">▶ TIT</span>'; }
+        else if (inBench) { suffix = ' <span style="color:var(--text3); font-size:10px;">— PANC</span>'; }
+
+        return `
+          <div class="available-player ${extraClass}" data-id="${p.id}" data-role="${p.role}" onclick="onPlayerClick(${p.id}, '${p.role}')">
+            <span class="role-badge ${roleColors[p.role]}">${p.role}</span>
+            <div class="player-info">
+              <div class="name">${p.name}${suffix}</div>
+              <div class="team">${p.team}</div>
+            </div>
+            <span class="player-fanta">${p.fantaAvg.toFixed(1)}</span>
+          </div>`;
+      }).join('') || '<div style="padding:20px;text-align:center;color:var(--text3);font-size:13px;">Nessun giocatore trovato.</div>';
+    }
+
+    function selectSlot(key, role) {
+      if (selectedSlot && selectedSlot.key === key) {
+        selectedSlot = null;
+      } else {
+        selectedSlot = { key, role };
+        UI.showToast(`Seleziona un ${role === 'P' ? 'portiere' : role === 'D' ? 'difensore' : role === 'C' ? 'centrocampista' : 'attaccante'} dalla lista →`, 'info');
+      }
+      renderField();
+    }
+
+    function onPlayerClick(playerId, playerRole) {
+      const used = getUsedPlayerIds();
+      const inBench = new Set(benchIds);
+
+      if (selectedSlot) {
+        // Assegna a uno slot
+        const expectedRole = selectedSlot.role;
+        if (playerRole !== expectedRole) {
+          UI.showToast(`Ruolo non corretto! Serve un ${expectedRole}`, 'error');
+          return;
+        }
+        if (used.has(playerId)) {
+          UI.showToast('Giocatore già in formazione.', 'error');
+          return;
+        }
+        // Rimuovi dalla panchina se c'era
+        benchIds = benchIds.filter(id => id !== playerId);
+        currentLineup[selectedSlot.key] = playerId;
+        selectedSlot = null;
+        renderField();
+        UI.showToast('Giocatore inserito in formazione ✓', 'success');
+      } else {
+        // Aggiungi/rimuovi dalla panchina
+        if (used.has(playerId)) {
+          UI.showToast('Già in formazione. Rimuovilo prima.', 'info');
+          return;
+        }
+        if (inBench.has(playerId)) {
+          benchIds = benchIds.filter(id => id !== playerId);
+          UI.showToast('Rimosso dalla panchina.', 'info');
+        } else {
+          if (benchIds.length >= 4) {
+            UI.showToast('Panchina piena (max 4 riserve).', 'error');
+            return;
+          }
+          benchIds.push(playerId);
+          UI.showToast('Aggiunto in panchina.', 'success');
+        }
+        renderField();
+      }
+    }
+
+    function removeFromSlot(key) {
+      delete currentLineup[key];
+      if (selectedSlot?.key === key) selectedSlot = null;
+      renderField();
+    }
+
+    function removeFromBench(id) {
+      benchIds = benchIds.filter(x => x !== id);
+      renderField();
+    }
+
+    // Expose to onclick
+    window.selectSlot = selectSlot;
+    window.onPlayerClick = onPlayerClick;
+    window.removeFromSlot = removeFromSlot;
+    window.removeFromBench = removeFromBench;
+
+    // Formation change
+    document.getElementById('formation-select').addEventListener('change', function() {
+      currentFormation = this.value;
+      // Clear lineup when formation changes
+      currentLineup = {};
+      renderField();
+      UI.showToast('Modulo cambiato. Riassegna i giocatori.', 'info');
+    });
+
+    // Panel filters
+    document.querySelectorAll('.role-filter').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.role-filter').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        renderAvailablePlayers();
+      });
+    });
+    document.getElementById('panel-search').addEventListener('input', renderAvailablePlayers);
+
+    // Save
+    document.getElementById('save-btn').addEventListener('click', () => {
+      const slotRoles = getSlotRoles(currentFormation);
+      const filledSlots = slotRoles.filter(s => currentLineup[s.key]);
+      const totalNeeded = 1 + formations[currentFormation].D + formations[currentFormation].C + formations[currentFormation].A;
+
+      if (filledSlots.length < totalNeeded) {
+        UI.showToast(`Formazione incompleta: ${filledSlots.length}/${totalNeeded} titolari.`, 'error');
+        return;
+      }
+
+      team.lineup = { ...currentLineup };
+      team.bench = [...benchIds];
+      team.formation = currentFormation;
+      team.captainId = captainId;
+      team.viceCaptainId = viceCaptainId;
+      Store.saveTeam(session.userId, team);
+      UI.showToast('Formazione salvata con successo! ✓', 'success');
+    });
+
+    // Reset
+    document.getElementById('reset-btn').addEventListener('click', () => {
+      if (confirm('Vuoi davvero azzerare la formazione?')) {
+        currentLineup = {};
+        benchIds = [];
+        captainId = null;
+        viceCaptainId = null;
+        selectedSlot = null;
+        renderField();
+        UI.showToast('Formazione azzerata.', 'info');
+      }
+    });
+
+    // Initial render
+    renderField();
+  </script>
 </body>
 </html>

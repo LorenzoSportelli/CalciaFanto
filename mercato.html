@@ -1,347 +1,438 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mercato - FantaLega</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mercato - FantaLega</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .offer-badge { background: var(--gold-dim); color: var(--gold); padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; font-family: 'Barlow Condensed', sans-serif; }
+    .sold-badge { background: var(--green-dim); color: var(--green); padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; font-family: 'Barlow Condensed', sans-serif; }
+  </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-brand">
-            <span class="logo-icon">⚽</span>
-            <span>FantaLega</span>
+  <nav class="navbar">
+    <a href="dashboard.html" class="nav-brand"><span class="logo-icon">⚽</span>FantaLega</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="rosa.html">La mia rosa</a></li>
+      <li><a href="formazione.html">Formazione</a></li>
+      <li><a href="calendario.html">Calendario</a></li>
+      <li><a href="classifica.html">Classifica</a></li>
+      <li><a href="mercato.html" class="active">Mercato</a></li>
+    </ul>
+    <div class="nav-user">
+      <span class="user-credits">💰 —</span>
+      <div class="user-avatar">—</div>
+      <a href="#" class="logout-btn" id="logout-btn">Esci</a>
+    </div>
+  </nav>
+
+  <div class="page-container">
+    <header class="page-header">
+      <div>
+        <h1>Mercato</h1>
+        <p>Acquista svincolati o metti in vendita i tuoi giocatori</p>
+      </div>
+      <div class="market-balance">
+        <span class="balance-label">Crediti disponibili</span>
+        <span class="balance-value" id="balance-display">💰 —</span>
+      </div>
+    </header>
+
+    <div class="market-tabs">
+      <button class="market-tab active" data-tab="svincolati">Svincolati</button>
+      <button class="market-tab" data-tab="vendi">Vendi giocatori</button>
+      <button class="market-tab" data-tab="trasferimenti">Trasferimenti</button>
+    </div>
+
+    <!-- SVINCOLATI -->
+    <section class="market-section active" id="svincolati">
+      <div class="market-controls">
+        <div class="search-box">
+          <input type="text" id="market-search" placeholder="Cerca giocatore...">
         </div>
-        
-        <button class="nav-toggle" aria-label="Menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        
-        <ul class="nav-menu">
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="rosa.html">La mia rosa</a></li>
-            <li><a href="formazione.html">Formazione</a></li>
-            <li><a href="calendario.html">Calendario</a></li>
-            <li><a href="classifica.html">Classifica</a></li>
-            <li><a href="mercato.html" class="active">Mercato</a></li>
-        </ul>
-        
-        <div class="nav-user">
-            <span class="user-credits">💰 285</span>
-            <div class="user-avatar" title="FC Campioni">FC</div>
-            <a href="index.html" class="logout-btn">Esci</a>
+        <div class="market-filters">
+          <select id="role-filter">
+            <option value="">Tutti i ruoli</option>
+            <option value="P">Portieri</option>
+            <option value="D">Difensori</option>
+            <option value="C">Centrocampisti</option>
+            <option value="A">Attaccanti</option>
+          </select>
+          <select id="team-filter">
+            <option value="">Tutte le squadre</option>
+            <option>Inter</option><option>Juventus</option><option>Napoli</option>
+            <option>Milan</option><option>Roma</option><option>Lazio</option>
+            <option>Atalanta</option><option>Fiorentina</option><option>Sassuolo</option>
+          </select>
+          <select id="price-filter">
+            <option value="">Tutte le quotazioni</option>
+            <option value="0-10">0 - 10</option>
+            <option value="11-20">11 - 20</option>
+            <option value="21-30">21 - 30</option>
+            <option value="31-999">31+</option>
+          </select>
         </div>
-    </nav>
-    <div class="page-container">
-        <header class="page-header">
+      </div>
+      <div class="market-grid" id="free-agents-grid"></div>
+    </section>
+
+    <!-- VENDI -->
+    <section class="market-section" id="vendi">
+      <p style="color:var(--text2); margin-bottom:16px; font-size:14px;">
+        Seleziona un giocatore dalla tua rosa da mettere in vendita. Riceverai la quotazione attuale in crediti.
+      </p>
+      <div class="market-grid" id="sell-grid"></div>
+    </section>
+
+    <!-- TRASFERIMENTI -->
+    <section class="market-section" id="trasferimenti">
+      <div class="card">
+        <div class="card-title">Cronologia trasferimenti</div>
+        <div class="table-container">
+          <table>
+            <thead><tr><th>Tipo</th><th>Giocatore</th><th>Crediti</th><th>Data</th></tr></thead>
+            <tbody id="transfers-list"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- BUY MODAL -->
+  <div class="modal" id="buy-modal">
+    <div class="modal-box">
+      <div class="modal-title">
+        Acquista giocatore
+        <button class="modal-close" id="buy-modal-close">×</button>
+      </div>
+      <div id="buy-modal-content"></div>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="buy-cancel">Annulla</button>
+        <button class="btn btn-primary" id="buy-confirm">Acquista</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SELL MODAL -->
+  <div class="modal" id="sell-modal">
+    <div class="modal-box">
+      <div class="modal-title">
+        Vendi giocatore
+        <button class="modal-close" id="sell-modal-close">×</button>
+      </div>
+      <div id="sell-modal-content"></div>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="sell-cancel">Annulla</button>
+        <button class="btn btn-danger" id="sell-confirm">Vendi</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/core.js"></script>
+  <script>
+    const session = Auth.requireAuth();
+    let team = Store.getTeam(session.userId);
+    let league = Store.getLeague();
+
+    UI.setNavUser(session, team);
+    document.getElementById('logout-btn').onclick = e => { e.preventDefault(); Auth.logout(); };
+    document.getElementById('nav-toggle').onclick = () => document.getElementById('nav-menu').classList.toggle('active');
+
+    const allPlayers = Store.getPlayers();
+
+    function refreshBalance() {
+      document.getElementById('balance-display').textContent = `💰 ${team.credits}`;
+      document.querySelector('.user-credits').textContent = `💰 ${team.credits}`;
+    }
+    refreshBalance();
+
+    // ========================
+    // TABS
+    // ========================
+    document.querySelectorAll('.market-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.market-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        document.querySelectorAll('.market-section').forEach(s => s.classList.remove('active'));
+        document.getElementById(this.dataset.tab).classList.add('active');
+      });
+    });
+
+    // ========================
+    // FREE AGENTS
+    // ========================
+    function getFreeAgentIds() {
+      // Players not in my roster and in league's free agents list
+      const myIds = new Set(team.rosterIds || []);
+      return (league?.freeAgents || []).filter(id => !myIds.has(id));
+    }
+
+    function renderFreeAgents() {
+      const freeIds = getFreeAgentIds();
+      let players = allPlayers.filter(p => freeIds.includes(p.id));
+
+      const search = document.getElementById('market-search').value.toLowerCase();
+      const role = document.getElementById('role-filter').value;
+      const teamF = document.getElementById('team-filter').value;
+      const price = document.getElementById('price-filter').value;
+
+      if (search) players = players.filter(p => p.name.toLowerCase().includes(search));
+      if (role) players = players.filter(p => p.role === role);
+      if (teamF) players = players.filter(p => p.team === teamF);
+      if (price) {
+        const [min, max] = price.split('-').map(n => n === '999' ? Infinity : parseInt(n));
+        players = players.filter(p => p.value >= min && p.value <= max);
+      }
+
+      const avatarClass = { P: 'avatar-p', D: 'avatar-d', C: 'avatar-c', A: 'avatar-a' };
+      const grid = document.getElementById('free-agents-grid');
+
+      if (players.length === 0) {
+        grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><div class="empty-icon">🔍</div><h3>Nessun giocatore trovato</h3><p>Prova a modificare i filtri.</p></div>';
+        return;
+      }
+
+      grid.innerHTML = players.map(p => `
+        <div class="market-player-card" data-id="${p.id}">
+          <div class="card-header">
+            <div class="player-avatar ${avatarClass[p.role]}">${p.name[0]}</div>
             <div>
-                <h1>Mercato</h1>
-                <p>Sessione aperta fino a <strong>Venerdì 25 Apr, 18:00</strong></p>
+              <div class="player-name">${p.name}</div>
+              <div class="player-team">${p.team}</div>
             </div>
-            <div class="market-balance">
-                <span class="balance-label">Crediti disponibili</span>
-                <span class="balance-value">💰 285</span>
+            ${UI.getRoleBadge(p.role)}
+          </div>
+          <div class="player-stats">
+            <div class="stat-row">FM: <span class="text-green">${p.fantaAvg.toFixed(2)}</span></div>
+            <div class="stat-row">MV: <span>${p.avgRating.toFixed(2)}</span></div>
+            <div class="stat-row">Gol: <span>${p.goals}</span></div>
+            <div class="stat-row">Pres.: <span>${p.appearances}</span></div>
+          </div>
+          <div style="display:flex; align-items:flex-end; justify-content:space-between;">
+            <div>
+              <div class="value-label">Quotazione</div>
+              <div class="player-value">${p.value} cr</div>
             </div>
-        </header>
-        <!-- Market Tabs -->
-        <div class="market-tabs">
-            <button class="market-tab active" data-tab="svincolati">Svincolati</button>
-            <button class="market-tab" data-tab="aste">Aste attive</button>
-            <button class="market-tab" data-tab="offerte">Le mie offerte</button>
-            <button class="market-tab" data-tab="trasferimenti">Trasferimenti</button>
+            <button class="btn btn-primary btn-sm" onclick="openBuyModal(${p.id})">Acquista</button>
+          </div>
+        </div>`).join('');
+    }
+
+    // Filters
+    ['market-search', 'role-filter', 'team-filter', 'price-filter'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', renderFreeAgents);
+      document.getElementById(id)?.addEventListener('change', renderFreeAgents);
+    });
+
+    // ========================
+    // SELL TAB
+    // ========================
+    function renderSellGrid() {
+      const myPlayers = allPlayers.filter(p => (team.rosterIds || []).includes(p.id));
+      const avatarClass = { P: 'avatar-p', D: 'avatar-d', C: 'avatar-c', A: 'avatar-a' };
+      const grid = document.getElementById('sell-grid');
+
+      if (myPlayers.length === 0) {
+        grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><div class="empty-icon">📋</div><h3>Rosa vuota</h3><p>Acquista giocatori prima.</p></div>';
+        return;
+      }
+
+      grid.innerHTML = myPlayers.map(p => `
+        <div class="market-player-card" data-id="${p.id}">
+          <div class="card-header">
+            <div class="player-avatar ${avatarClass[p.role]}">${p.name[0]}</div>
+            <div>
+              <div class="player-name">${p.name}</div>
+              <div class="player-team">${p.team}</div>
+            </div>
+            ${UI.getRoleBadge(p.role)}
+          </div>
+          <div class="player-stats">
+            <div class="stat-row">FM: <span class="text-green">${p.fantaAvg.toFixed(2)}</span></div>
+            <div class="stat-row">MV: <span>${p.avgRating.toFixed(2)}</span></div>
+            <div class="stat-row">Gol: <span>${p.goals}</span></div>
+            <div class="stat-row">Ass.: <span>${p.assists}</span></div>
+          </div>
+          <div style="display:flex; align-items:flex-end; justify-content:space-between;">
+            <div>
+              <div class="value-label">Riceverai</div>
+              <div class="player-value text-gold">${p.value} cr</div>
+            </div>
+            <button class="btn btn-danger btn-sm" onclick="openSellModal(${p.id})">Vendi</button>
+          </div>
+        </div>`).join('');
+    }
+
+    // ========================
+    // TRANSFERS HISTORY
+    // ========================
+    function renderTransfers() {
+      const transfers = team.offers || [];
+      const tbody = document.getElementById('transfers-list');
+      if (transfers.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" class="text-muted" style="padding:20px; text-align:center;">Nessun trasferimento ancora.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = transfers.map(t => `
+        <tr>
+          <td><span class="${t.type === 'buy' ? 'sold-badge' : 'offer-badge'}">${t.type === 'buy' ? '📥 Acquisto' : '📤 Vendita'}</span></td>
+          <td>${t.playerName}</td>
+          <td class="${t.type === 'buy' ? 'text-red' : 'text-green'}">${t.type === 'buy' ? '-' : '+'}${t.amount} cr</td>
+          <td class="text-muted" style="font-size:12px;">${t.date}</td>
+        </tr>`).join('');
+    }
+
+    // ========================
+    // BUY MODAL
+    // ========================
+    let buyTargetId = null;
+
+    function openBuyModal(playerId) {
+      buyTargetId = playerId;
+      const p = allPlayers.find(x => x.id === playerId);
+      if (!p) return;
+      document.getElementById('buy-modal-content').innerHTML = `
+        <div style="background:var(--bg3); border-radius:8px; padding:16px; margin-bottom:16px;">
+          <div style="font-size:20px; font-weight:700; margin-bottom:4px;">${p.name}</div>
+          <div style="color:var(--text2); font-size:13px;">${p.team} · ${p.role === 'P' ? 'Portiere' : p.role === 'D' ? 'Difensore' : p.role === 'C' ? 'Centrocampista' : 'Attaccante'}</div>
+          <div style="margin-top:12px; display:flex; gap:20px;">
+            <div><div style="font-size:11px;color:var(--text3);">FantaMedia</div><div style="font-size:18px;font-weight:700;color:var(--green);">${p.fantaAvg.toFixed(2)}</div></div>
+            <div><div style="font-size:11px;color:var(--text3);">Gol</div><div style="font-size:18px;font-weight:700;">${p.goals}</div></div>
+            <div><div style="font-size:11px;color:var(--text3);">Presenze</div><div style="font-size:18px;font-weight:700;">${p.appearances}</div></div>
+          </div>
         </div>
-        <!-- Svincolati Section -->
-        <section class="market-section active" id="svincolati">
-            <div class="market-controls">
-                <div class="search-box">
-                    <input type="text" id="market-search" placeholder="Cerca giocatore...">
-                </div>
-                <div class="market-filters">
-                    <select id="role-filter">
-                        <option value="">Tutti i ruoli</option>
-                        <option value="P">Portieri</option>
-                        <option value="D">Difensori</option>
-                        <option value="C">Centrocampisti</option>
-                        <option value="A">Attaccanti</option>
-                    </select>
-                    <select id="team-filter">
-                        <option value="">Tutte le squadre</option>
-                        <option value="Inter">Inter</option>
-                        <option value="Milan">Milan</option>
-                        <option value="Juventus">Juventus</option>
-                        <option value="Napoli">Napoli</option>
-                        <option value="Roma">Roma</option>
-                        <option value="Lazio">Lazio</option>
-                        <option value="Atalanta">Atalanta</option>
-                        <option value="Fiorentina">Fiorentina</option>
-                    </select>
-                    <select id="price-filter">
-                        <option value="">Qualsiasi prezzo</option>
-                        <option value="0-10">0-10 crediti</option>
-                        <option value="10-20">10-20 crediti</option>
-                        <option value="20-30">20-30 crediti</option>
-                        <option value="30+">30+ crediti</option>
-                    </select>
-                </div>
-            </div>
-            <div class="players-market-grid">
-                <!-- Player Card 1 -->
-                <div class="market-player-card">
-                    <div class="player-card-header">
-                        <span class="role-badge role-a">A</span>
-                        <span class="player-value">💰 28</span>
-                    </div>
-                    <div class="player-card-body">
-                        <h3 class="player-name">Retegui</h3>
-                        <span class="player-team">Atalanta</span>
-                        <div class="player-stats">
-                            <div class="stat">
-                                <span class="stat-value">6.42</span>
-                                <span class="stat-label">Media</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">7</span>
-                                <span class="stat-label">Gol</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">12/14</span>
-                                <span class="stat-label">Pres.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="player-card-actions">
-                        <button class="btn btn-primary btn-small">Fai offerta</button>
-                    </div>
-                </div>
-                <!-- Player Card 2 -->
-                <div class="market-player-card">
-                    <div class="player-card-header">
-                        <span class="role-badge role-c">C</span>
-                        <span class="player-value">💰 22</span>
-                    </div>
-                    <div class="player-card-body">
-                        <h3 class="player-name">Ederson</h3>
-                        <span class="player-team">Atalanta</span>
-                        <div class="player-stats">
-                            <div class="stat">
-                                <span class="stat-value">6.28</span>
-                                <span class="stat-label">Media</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">4</span>
-                                <span class="stat-label">Gol</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">14/14</span>
-                                <span class="stat-label">Pres.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="player-card-actions">
-                        <button class="btn btn-primary btn-small">Fai offerta</button>
-                    </div>
-                </div>
-                <!-- Player Card 3 -->
-                <div class="market-player-card">
-                    <div class="player-card-header">
-                        <span class="role-badge role-d">D</span>
-                        <span class="player-value">💰 15</span>
-                    </div>
-                    <div class="player-card-body">
-                        <h3 class="player-name">Scalvini</h3>
-                        <span class="player-team">Atalanta</span>
-                        <div class="player-stats">
-                            <div class="stat">
-                                <span class="stat-value">6.12</span>
-                                <span class="stat-label">Media</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">1</span>
-                                <span class="stat-label">Gol</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">10/14</span>
-                                <span class="stat-label">Pres.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="player-card-actions">
-                        <button class="btn btn-primary btn-small">Fai offerta</button>
-                    </div>
-                </div>
-                <!-- Player Card 4 -->
-                <div class="market-player-card">
-                    <div class="player-card-header">
-                        <span class="role-badge role-c">C</span>
-                        <span class="player-value">💰 18</span>
-                    </div>
-                    <div class="player-card-body">
-                        <h3 class="player-name">Colpani</h3>
-                        <span class="player-team">Fiorentina</span>
-                        <div class="player-stats">
-                            <div class="stat">
-                                <span class="stat-value">6.18</span>
-                                <span class="stat-label">Media</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">3</span>
-                                <span class="stat-label">Gol</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">13/14</span>
-                                <span class="stat-label">Pres.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="player-card-actions">
-                        <button class="btn btn-primary btn-small">Fai offerta</button>
-                    </div>
-                </div>
-                <!-- Player Card 5 -->
-                <div class="market-player-card">
-                    <div class="player-card-header">
-                        <span class="role-badge role-a">A</span>
-                        <span class="player-value">💰 24</span>
-                    </div>
-                    <div class="player-card-body">
-                        <h3 class="player-name">Kean</h3>
-                        <span class="player-team">Fiorentina</span>
-                        <div class="player-stats">
-                            <div class="stat">
-                                <span class="stat-value">6.35</span>
-                                <span class="stat-label">Media</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">8</span>
-                                <span class="stat-label">Gol</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">14/14</span>
-                                <span class="stat-label">Pres.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="player-card-actions">
-                        <button class="btn btn-primary btn-small">Fai offerta</button>
-                    </div>
-                </div>
-                <!-- Player Card 6 -->
-                <div class="market-player-card">
-                    <div class="player-card-header">
-                        <span class="role-badge role-p">P</span>
-                        <span class="player-value">💰 10</span>
-                    </div>
-                    <div class="player-card-body">
-                        <h3 class="player-name">Carnesecchi</h3>
-                        <span class="player-team">Atalanta</span>
-                        <div class="player-stats">
-                            <div class="stat">
-                                <span class="stat-value">6.08</span>
-                                <span class="stat-label">Media</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">-11</span>
-                                <span class="stat-label">Gol sub.</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">14/14</span>
-                                <span class="stat-label">Pres.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="player-card-actions">
-                        <button class="btn btn-primary btn-small">Fai offerta</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Aste Attive Section -->
-        <section class="market-section" id="aste">
-            <div class="auctions-list">
-                <div class="auction-card">
-                    <div class="auction-player">
-                        <span class="role-badge role-a">A</span>
-                        <div class="auction-player-info">
-                            <h3>Retegui</h3>
-                            <span class="player-team">Atalanta</span>
-                        </div>
-                    </div>
-                    <div class="auction-details">
-                        <div class="current-bid">
-                            <span class="bid-label">Offerta attuale</span>
-                            <span class="bid-value">💰 32</span>
-                            <span class="bidder">Milan Magic</span>
-                        </div>
-                        <div class="auction-timer">
-                            <span class="timer-label">Termina tra</span>
-                            <span class="timer-value">2h 34m</span>
-                        </div>
-                    </div>
-                    <div class="auction-actions">
-                        <input type="number" min="33" value="33" class="bid-input">
-                        <button class="btn btn-primary">Rilancia</button>
-                    </div>
-                </div>
-                <div class="auction-card your-bid">
-                    <div class="auction-player">
-                        <span class="role-badge role-c">C</span>
-                        <div class="auction-player-info">
-                            <h3>Ederson</h3>
-                            <span class="player-team">Atalanta</span>
-                        </div>
-                    </div>
-                    <div class="auction-details">
-                        <div class="current-bid">
-                            <span class="bid-label">La tua offerta</span>
-                            <span class="bid-value highlight">💰 25</span>
-                            <span class="bidder winning">Miglior offerente</span>
-                        </div>
-                        <div class="auction-timer">
-                            <span class="timer-label">Termina tra</span>
-                            <span class="timer-value">5h 12m</span>
-                        </div>
-                    </div>
-                    <div class="auction-status">
-                        <span class="status-winning">🏆 Stai vincendo!</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-    <!-- Offer Modal -->
-    <div class="modal" id="offer-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Fai un'offerta</h3>
-                <button class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="offer-player-info">
-                    <span class="role-badge role-a">A</span>
-                    <div>
-                        <h4>Retegui</h4>
-                        <span>Atalanta • Quotazione: 28</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="offer-amount">La tua offerta</label>
-                    <input type="number" id="offer-amount" min="28" value="28">
-                    <span class="help-text">Offerta minima: 28 crediti</span>
-                </div>
-                <div class="modal-summary">
-                    <p>Crediti disponibili: <strong>285</strong></p>
-                    <p>Crediti dopo l'acquisto: <strong>257</strong></p>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary modal-cancel">Annulla</button>
-                <button class="btn btn-primary">Conferma offerta</button>
-            </div>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <div style="font-size:12px; color:var(--text2);">Costo</div>
+            <div style="font-size:24px; font-weight:800; color:var(--gold); font-family:'Barlow Condensed',sans-serif;">${p.value} crediti</div>
+          </div>
+          <div>
+            <div style="font-size:12px; color:var(--text2);">Tuoi crediti</div>
+            <div style="font-size:20px; font-weight:700; color:${team.credits >= p.value ? 'var(--green)' : 'var(--red)'};">${team.credits}</div>
+          </div>
         </div>
-    </div>
-    <script src="js/app.js"></script>
+        ${team.credits < p.value ? '<p style="color:var(--red); margin-top:12px; font-size:13px;">⚠️ Crediti insufficienti per questo acquisto.</p>' : ''}
+      `;
+      document.getElementById('buy-confirm').disabled = team.credits < p.value;
+      document.getElementById('buy-modal').classList.add('active');
+    }
+
+    function closeBuyModal() { document.getElementById('buy-modal').classList.remove('active'); buyTargetId = null; }
+
+    document.getElementById('buy-modal-close').onclick = closeBuyModal;
+    document.getElementById('buy-cancel').onclick = closeBuyModal;
+
+    document.getElementById('buy-confirm').onclick = () => {
+      const p = allPlayers.find(x => x.id === buyTargetId);
+      if (!p) return;
+      if (team.credits < p.value) { UI.showToast('Crediti insufficienti.', 'error'); return; }
+
+      // Execute purchase
+      team.credits -= p.value;
+      team.rosterIds = [...(team.rosterIds || []), p.id];
+      team.offers = team.offers || [];
+      team.offers.unshift({ type: 'buy', playerId: p.id, playerName: p.name, amount: p.value, date: new Date().toLocaleDateString('it-IT') });
+
+      // Remove from free agents
+      if (league) {
+        league.freeAgents = (league.freeAgents || []).filter(id => id !== p.id);
+        Store.saveLeague(league);
+      }
+
+      Store.saveTeam(session.userId, team);
+      closeBuyModal();
+      refreshBalance();
+      renderFreeAgents();
+      renderSellGrid();
+      renderTransfers();
+      UI.showToast(`${p.name} acquistato per ${p.value} crediti! ✓`, 'success');
+    };
+
+    // ========================
+    // SELL MODAL
+    // ========================
+    let sellTargetId = null;
+
+    function openSellModal(playerId) {
+      sellTargetId = playerId;
+      const p = allPlayers.find(x => x.id === playerId);
+      if (!p) return;
+
+      // Warn if player is in lineup
+      const inLineup = Object.values(team.lineup || {}).includes(p.id);
+      document.getElementById('sell-modal-content').innerHTML = `
+        <div style="background:var(--bg3); border-radius:8px; padding:16px; margin-bottom:16px;">
+          <div style="font-size:20px; font-weight:700; margin-bottom:4px;">${p.name}</div>
+          <div style="color:var(--text2); font-size:13px;">${p.team}</div>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <div style="font-size:12px; color:var(--text2);">Riceverai</div>
+            <div style="font-size:24px; font-weight:800; color:var(--gold); font-family:'Barlow Condensed',sans-serif;">+${p.value} crediti</div>
+          </div>
+          <div>
+            <div style="font-size:12px; color:var(--text2);">Tuoi crediti dopo</div>
+            <div style="font-size:20px; font-weight:700; color:var(--green);">${team.credits + p.value}</div>
+          </div>
+        </div>
+        ${inLineup ? '<p style="color:var(--red); margin-top:12px; font-size:13px;">⚠️ Questo giocatore è nella tua formazione. Verrà rimosso automaticamente.</p>' : ''}
+      `;
+      document.getElementById('sell-modal').classList.add('active');
+    }
+
+    function closeSellModal() { document.getElementById('sell-modal').classList.remove('active'); sellTargetId = null; }
+
+    document.getElementById('sell-modal-close').onclick = closeSellModal;
+    document.getElementById('sell-cancel').onclick = closeSellModal;
+
+    document.getElementById('sell-confirm').onclick = () => {
+      const p = allPlayers.find(x => x.id === sellTargetId);
+      if (!p) return;
+
+      team.credits += p.value;
+      team.rosterIds = (team.rosterIds || []).filter(id => id !== p.id);
+      team.bench = (team.bench || []).filter(id => id !== p.id);
+
+      // Remove from lineup
+      if (team.lineup) {
+        Object.keys(team.lineup).forEach(slot => {
+          if (team.lineup[slot] === p.id) delete team.lineup[slot];
+        });
+      }
+
+      team.offers = team.offers || [];
+      team.offers.unshift({ type: 'sell', playerId: p.id, playerName: p.name, amount: p.value, date: new Date().toLocaleDateString('it-IT') });
+
+      // Add back to free agents
+      if (league) {
+        if (!league.freeAgents.includes(p.id)) league.freeAgents.push(p.id);
+        Store.saveLeague(league);
+      }
+
+      Store.saveTeam(session.userId, team);
+      closeSellModal();
+      refreshBalance();
+      renderFreeAgents();
+      renderSellGrid();
+      renderTransfers();
+      UI.showToast(`${p.name} venduto per ${p.value} crediti! ✓`, 'success');
+    };
+
+    window.openBuyModal = openBuyModal;
+    window.openSellModal = openSellModal;
+
+    // Close modals on backdrop
+    document.querySelectorAll('.modal').forEach(m => {
+      m.addEventListener('click', e => { if (e.target === m) m.classList.remove('active'); });
+    });
+
+    // Initial renders
+    renderFreeAgents();
+    renderSellGrid();
+    renderTransfers();
+  </script>
 </body>
 </html>

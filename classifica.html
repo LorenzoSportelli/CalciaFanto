@@ -1,309 +1,165 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classifica - FantaLega</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classifica - FantaLega</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-brand">
-            <span class="logo-icon">⚽</span>
-            <span>FantaLega</span>
-        </div>
-        
-        <button class="nav-toggle" aria-label="Menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        
-        <ul class="nav-menu">
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="rosa.html">La mia rosa</a></li>
-            <li><a href="formazione.html">Formazione</a></li>
-            <li><a href="calendario.html">Calendario</a></li>
-            <li><a href="classifica.html" class="active">Classifica</a></li>
-            <li><a href="mercato.html">Mercato</a></li>
-        </ul>
-        
-        <div class="nav-user">
-            <span class="user-credits">💰 285</span>
-            <div class="user-avatar" title="FC Campioni">FC</div>
-            <a href="index.html" class="logout-btn">Esci</a>
-        </div>
-    </nav>
-    <div class="page-container">
-        <header class="page-header">
-            <h1>Classifica</h1>
-            <p>Lega: <strong>Amici del Calcio</strong> - Aggiornata alla Giornata 14</p>
-        </header>
-        <!-- Leaderboard Tabs -->
-        <div class="leaderboard-tabs">
-            <button class="leaderboard-tab active" data-view="general">Classifica generale</button>
-            <button class="leaderboard-tab" data-view="points">Punti totali</button>
-            <button class="leaderboard-tab" data-view="form">Forma recente</button>
-        </div>
-        <!-- Main Leaderboard -->
-        <section class="leaderboard-section">
-            <table class="full-leaderboard">
-                <thead>
-                    <tr>
-                        <th class="pos-col">#</th>
-                        <th class="team-col">Squadra</th>
-                        <th>G</th>
-                        <th>V</th>
-                        <th>P</th>
-                        <th>S</th>
-                        <th>GF</th>
-                        <th>GS</th>
-                        <th>Diff</th>
-                        <th class="pts-col">Pt</th>
-                        <th class="form-col">Forma</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="podium gold">
-                        <td class="pos-col">
-                            <span class="position">1</span>
-                            <span class="trend up">▲</span>
-                        </td>
-                        <td class="team-col">
-                            <div class="team-badge">NU</div>
-                            <span class="team-name">Napoli United</span>
-                        </td>
-                        <td>14</td>
-                        <td>10</td>
-                        <td>2</td>
-                        <td>2</td>
-                        <td>912</td>
-                        <td>788</td>
-                        <td class="positive">+124</td>
-                        <td class="pts-col"><strong>32</strong></td>
-                        <td class="form-col">
-                            <span class="form-badge win">V</span>
-                            <span class="form-badge win">V</span>
-                            <span class="form-badge draw">P</span>
-                            <span class="form-badge win">V</span>
-                            <span class="form-badge win">V</span>
-                        </td>
-                    </tr>
-                    <tr class="podium silver">
-                        <td class="pos-col">
-                            <span class="position">2</span>
-                            <span class="trend same">–</span>
-                        </td>
-                        <td class="team-col">
-                            <div class="team-badge">MM</div>
-                            <span class="team-name">Milan Magic</span>
-                        </td>
-                        <td>14</td>
-                        <td>9</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>876</td>
-                        <td>787</td>
-                        <td class="positive">+89</td>
-                        <td class="pts-col"><strong>29</strong></td>
-                        <td class="form-col">
-                            <span class="form-badge win">V</span>
-                            <span class="form-badge loss">S</span>
-                            <span class="form-badge win">V</span>
-                            <span class="form-badge win">V</span>
-                            <span class="form-badge draw">P</span>
-                        </td>
-                    </tr>
-                    <tr class="podium bronze current-user">
-                        <td class="pos-col">
-                            <span class="position">3</span>
-                            <span class="trend up">▲</span>
-                        </td>
-                        <td class="team-col">
-                            <div class="team-badge highlight">FC</div>
-                            <span class="team-name">FC Campioni</span>
-                            <span class="you-badge">Tu</span>
-                        </td>
-                        <td>14</td>
-                        <td>8</td>
-                        <td>3</td>
-                        <td>3</td>
-                        <td>847</td>
-                        <td>780</td>
-                        <td class="positive">+67</td>
-                        <td class="pts-col"><strong>27</strong></td>
-                        <td class="form-col">
-                            <span class="form-badge win">V</span>
-                            <span class="form-badge win">V</span>
-                            <span class="form-badge loss">S</span>
-                            <span class="form-badge draw">P</span>
-                            <span class="form-badge win">V</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="pos-col">
-                            <span class="position">4</span>
-                            <span class="trend down">▼</span>
-                        </td>
-                        <td class="team-col">
-                            <div class="team-badge">IS</div>
-                            <span class="team-name">Inter Stellare</span>
-                        </td>
-                        <td>14</td>
-                        <td>8</td>
-                        <td>2</td>
-                        <td>4</td>
-                        <td>821</td>
-                        <td>776</td>
-                        <td class="positive">+45</td>
-                        <td class="pts-col"><strong>26</strong></td>
-                        <td class="form-col">
-                            <span class="form-badge loss">S</span>
-                            <span class="form-badge win">V</span>
-                            <span class="form-badge win">V</span>
-                            <span class="form-badge loss">S</span>
-                            <span class="form-badge win">V</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="pos-col">
-                            <span class="position">5</span>
-                            <span class="trend same">–</span>
-                        </td>
-                        <td class="team-col">
-                            <div class="team-badge">RM</div>
-                            <span class="team-name">Real Marmotte</span>
-                        </td>
-                        <td>14</td>
-                        <td>7</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>798</td>
-                        <td>775</td>
-                        <td class="positive">+23</td>
-                        <td class="pts-col"><strong>24</strong></td>
-                        <td class="form-col">
-                            <span class="form-badge draw">P</span>
-                            <span class="form-badge win">V</span>
-                            <span class="form-badge win">V</span>
-                            <span class="form-badge draw">P</span>
-                            <span class="form-badge loss">S</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="pos-col">
-                            <span class="position">6</span>
-                            <span class="trend up">▲</span>
-                        </td>
-                        <td class="team-col">
-                            <div class="team-badge">JP</div>
-                            <span class="team-name">Juve Pazza</span>
-                        </td>
-                        <td>14</td>
-                        <td>6</td>
-                        <td>5</td>
-                        <td>3</td>
-                        <td>785</td>
-                        <td>768</td>
-                        <td class="positive">+17</td>
-                        <td class="pts-col"><strong>23</strong></td>
-                        <td class="form-col">
-                            <span class="form-badge win">V</span>
-                            <span class="form-badge draw">P</span>
-                            <span class="form-badge draw">P</span>
-                            <span class="form-badge win">V</span>
-                            <span class="form-badge draw">P</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="pos-col">
-                            <span class="position">7</span>
-                            <span class="trend down">▼</span>
-                        </td>
-                        <td class="team-col">
-                            <div class="team-badge">RT</div>
-                            <span class="team-name">Roma Thunder</span>
-                        </td>
-                        <td>14</td>
-                        <td>6</td>
-                        <td>4</td>
-                        <td>4</td>
-                        <td>772</td>
-                        <td>778</td>
-                        <td class="negative">-6</td>
-                        <td class="pts-col"><strong>22</strong></td>
-                        <td class="form-col">
-                            <span class="form-badge loss">S</span>
-                            <span class="form-badge loss">S</span>
-                            <span class="form-badge draw">P</span>
-                            <span class="form-badge win">V</span>
-                            <span class="form-badge win">V</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="pos-col">
-                            <span class="position">8</span>
-                            <span class="trend same">–</span>
-                        </td>
-                        <td class="team-col">
-                            <div class="team-badge">LB</div>
-                            <span class="team-name">Lazio Blues</span>
-                        </td>
-                        <td>14</td>
-                        <td>5</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>745</td>
-                        <td>768</td>
-                        <td class="negative">-23</td>
-                        <td class="pts-col"><strong>19</strong></td>
-                        <td class="form-col">
-                            <span class="form-badge draw">P</span>
-                            <span class="form-badge loss">S</span>
-                            <span class="form-badge win">V</span>
-                            <span class="form-badge loss">S</span>
-                            <span class="form-badge win">V</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-        <!-- Stats Summary -->
-        <section class="stats-summary">
-            <h2>Statistiche della lega</h2>
-            <div class="stats-cards">
-                <div class="mini-stat-card">
-                    <span class="mini-stat-icon">🎯</span>
-                    <div class="mini-stat-content">
-                        <span class="mini-stat-value">68.2</span>
-                        <span class="mini-stat-label">Media punti/giornata</span>
-                    </div>
-                </div>
-                <div class="mini-stat-card">
-                    <span class="mini-stat-icon">🔥</span>
-                    <div class="mini-stat-content">
-                        <span class="mini-stat-value">Napoli United</span>
-                        <span class="mini-stat-label">Miglior attacco (912)</span>
-                    </div>
-                </div>
-                <div class="mini-stat-card">
-                    <span class="mini-stat-icon">🛡️</span>
-                    <div class="mini-stat-content">
-                        <span class="mini-stat-value">Inter Stellare</span>
-                        <span class="mini-stat-label">Miglior difesa (776)</span>
-                    </div>
-                </div>
-                <div class="mini-stat-card">
-                    <span class="mini-stat-icon">💯</span>
-                    <div class="mini-stat-content">
-                        <span class="mini-stat-value">92</span>
-                        <span class="mini-stat-label">Record giornata (G8 - Napoli United)</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <nav class="navbar">
+    <a href="dashboard.html" class="nav-brand"><span class="logo-icon">⚽</span>FantaLega</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="rosa.html">La mia rosa</a></li>
+      <li><a href="formazione.html">Formazione</a></li>
+      <li><a href="calendario.html">Calendario</a></li>
+      <li><a href="classifica.html" class="active">Classifica</a></li>
+      <li><a href="mercato.html">Mercato</a></li>
+    </ul>
+    <div class="nav-user">
+      <span class="user-credits">💰 —</span>
+      <div class="user-avatar">—</div>
+      <a href="#" class="logout-btn" id="logout-btn">Esci</a>
     </div>
-    <script src="js/app.js"></script>
+  </nav>
+
+  <div class="page-container">
+    <header class="page-header">
+      <div>
+        <h1>Classifica</h1>
+        <p id="league-subtitle">—</p>
+      </div>
+    </header>
+
+    <div class="leaderboard-tabs">
+      <button class="leaderboard-tab active" data-view="general">Classifica generale</button>
+      <button class="leaderboard-tab" data-view="points">Per punti totali</button>
+      <button class="leaderboard-tab" data-view="form">Forma recente</button>
+    </div>
+
+    <div class="card">
+      <div class="table-container">
+        <table class="full-leaderboard" id="standings-table">
+          <thead>
+            <tr id="table-headers">
+              <!-- filled by JS -->
+            </tr>
+          </thead>
+          <tbody id="standings-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- My team detail -->
+    <div class="card" style="margin-top:20px;" id="my-team-detail"></div>
+  </div>
+
+  <script src="js/core.js"></script>
+  <script>
+    const session = Auth.requireAuth();
+    const team = Store.getTeam(session.userId);
+    const league = Store.getLeague();
+
+    UI.setNavUser(session, team);
+    document.getElementById('logout-btn').onclick = e => { e.preventDefault(); Auth.logout(); };
+    document.getElementById('nav-toggle').onclick = () => document.getElementById('nav-menu').classList.toggle('active');
+
+    document.getElementById('league-subtitle').textContent = `${league?.name || 'Amici del Calcio'} · Aggiornata alla Giornata ${league?.currentMatchday || 14}`;
+
+    const allTeams = [...(league?.teams || [])];
+
+    // Ensure my team is in league with correct data
+    const myIdx = allTeams.findIndex(t => t.id === team.id);
+    if (myIdx === -1) {
+      allTeams.push({ id: team.id, name: session.teamName, owner: session.userId, points: team.points, wins: team.wins, draws: team.draws, losses: team.losses, gf: team.gf, ga: team.ga });
+    } else {
+      allTeams[myIdx] = { ...allTeams[myIdx], name: session.teamName, points: team.points, wins: team.wins, draws: team.draws, losses: team.losses, gf: team.gf, ga: team.ga };
+    }
+
+    let currentView = 'general';
+
+    function getSortedTeams(view) {
+      const copy = [...allTeams];
+      if (view === 'points') {
+        return copy.sort((a, b) => b.points - a.points || (b.gf - b.ga) - (a.gf - a.ga));
+      } else if (view === 'form') {
+        // Sort by wins desc
+        return copy.sort((a, b) => b.wins - a.wins || b.points - a.points);
+      }
+      // General: classifica con V, P, S
+      return copy.sort((a, b) => {
+        const apts = a.wins * 3 + a.draws;
+        const bpts = b.wins * 3 + b.draws;
+        return bpts - apts || (b.gf - b.ga) - (a.gf - a.ga);
+      });
+    }
+
+    const headersByView = {
+      general: `<th class="pos-col">#</th><th class="team-col">Squadra</th><th>G</th><th>V</th><th>P</th><th>S</th><th>GF</th><th>GA</th><th>+/-</th><th>Pt FG</th>`,
+      points: `<th class="pos-col">#</th><th class="team-col">Squadra</th><th>Pt Fanta</th><th>Media</th><th>GF</th><th>GA</th><th>+/-</th>`,
+      form: `<th class="pos-col">#</th><th class="team-col">Squadra</th><th>V</th><th>P</th><th>S</th><th>% Vitt.</th><th>Pt FG</th>`,
+    };
+
+    function renderStandings() {
+      const teams = getSortedTeams(currentView);
+      const headers = headersByView[currentView];
+      document.getElementById('table-headers').innerHTML = headers;
+
+      const tbody = document.getElementById('standings-body');
+      const totalGames = (allTeams[0]?.wins || 0) + (allTeams[0]?.draws || 0) + (allTeams[0]?.losses || 0);
+
+      tbody.innerHTML = teams.map((t, i) => {
+        const isMe = t.id === team.id;
+        const diff = (t.gf || 0) - (t.ga || 0);
+        const totalG = (t.wins || 0) + (t.draws || 0) + (t.losses || 0);
+        const winPct = totalG > 0 ? ((t.wins / totalG) * 100).toFixed(0) : 0;
+        const fantaPts = t.wins * 3 + t.draws;
+        const avg = totalG > 0 ? (t.points / totalG).toFixed(1) : '—';
+
+        let cells;
+        if (currentView === 'general') {
+          cells = `<td>${i+1}</td><td>${t.name}${isMe ? ' 👈' : ''}</td><td>${totalG}</td><td>${t.wins || 0}</td><td>${t.draws || 0}</td><td>${t.losses || 0}</td><td>${t.gf || 0}</td><td>${t.ga || 0}</td><td class="${diff >= 0 ? 'positive' : 'negative'}">${diff >= 0 ? '+' : ''}${diff}</td><td><strong>${fantaPts}</strong></td>`;
+        } else if (currentView === 'points') {
+          cells = `<td>${i+1}</td><td>${t.name}${isMe ? ' 👈' : ''}</td><td class="text-green fw-bold">${t.points}</td><td>${avg}</td><td>${t.gf || 0}</td><td>${t.ga || 0}</td><td class="${diff >= 0 ? 'positive' : 'negative'}">${diff >= 0 ? '+' : ''}${diff}</td>`;
+        } else {
+          cells = `<td>${i+1}</td><td>${t.name}${isMe ? ' 👈' : ''}</td><td class="positive">${t.wins || 0}</td><td class="text-gold">${t.draws || 0}</td><td class="negative">${t.losses || 0}</td><td>${winPct}%</td><td>${t.points}</td>`;
+        }
+
+        return `<tr class="${isMe ? 'my-team-row' : ''}">${cells}</tr>`;
+      }).join('');
+
+      // My team detail
+      const myTeam = teams.find(t => t.id === team.id);
+      const myPos = teams.findIndex(t => t.id === team.id) + 1;
+      if (myTeam) {
+        const totalG = (myTeam.wins || 0) + (myTeam.draws || 0) + (myTeam.losses || 0);
+        const diff = (myTeam.gf || 0) - (myTeam.ga || 0);
+        document.getElementById('my-team-detail').innerHTML = `
+          <div class="card-title">La tua squadra: <span class="text-green">${session.teamName}</span></div>
+          <div style="display:flex; gap:24px; flex-wrap:wrap;">
+            <div><div class="stat-label">Posizione</div><div class="stat-value fw-bold text-green">${myPos}° / ${teams.length}</div></div>
+            <div><div class="stat-label">Record (V-P-S)</div><div class="stat-value fw-bold">${myTeam.wins}-${myTeam.draws}-${myTeam.losses}</div></div>
+            <div><div class="stat-label">Punti Fantacalcio</div><div class="stat-value fw-bold text-gold">${myTeam.points}</div></div>
+            <div><div class="stat-label">Pt classifica</div><div class="stat-value fw-bold">${myTeam.wins * 3 + myTeam.draws}</div></div>
+            <div><div class="stat-label">Diff. punti</div><div class="stat-value fw-bold ${diff >= 0 ? 'text-green' : 'text-red'}">${diff >= 0 ? '+' : ''}${diff}</div></div>
+            <div><div class="stat-label">Crediti</div><div class="stat-value fw-bold text-gold">💰 ${team.credits}</div></div>
+          </div>
+        `;
+      }
+    }
+
+    document.querySelectorAll('.leaderboard-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.leaderboard-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        currentView = this.dataset.view;
+        renderStandings();
+      });
+    });
+
+    renderStandings();
+  </script>
 </body>
 </html>

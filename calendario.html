@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendario - FantaLega</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="dashboard.html" class="nav-brand"><span class="logo-icon">⚽</span>FantaLega</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="rosa.html">La mia rosa</a></li>
+      <li><a href="formazione.html">Formazione</a></li>
+      <li><a href="calendario.html" class="active">Calendario</a></li>
+      <li><a href="classifica.html">Classifica</a></li>
+      <li><a href="mercato.html">Mercato</a></li>
+    </ul>
+    <div class="nav-user">
+      <span class="user-credits">💰 —</span>
+      <div class="user-avatar">—</div>
+      <a href="#" class="logout-btn" id="logout-btn">Esci</a>
+    </div>
+  </nav>
+
+  <div class="page-container">
+    <header class="page-header">
+      <div>
+        <h1>Calendario</h1>
+        <p id="league-name">—</p>
+      </div>
+    </header>
+
+    <div class="matchday-nav">
+      <button class="matchday-btn" id="prev-gd">◀</button>
+      <select id="matchday-select"></select>
+      <button class="matchday-btn" id="next-gd">▶</button>
+      <button class="btn btn-secondary btn-sm" id="go-current">Giornata corrente</button>
+    </div>
+
+    <div id="matches-container"></div>
+
+    <!-- My results history -->
+    <div class="card" style="margin-top:24px;">
+      <div class="card-title">I miei risultati <span id="my-record" style="font-size:14px; color:var(--text2); font-family:'Barlow',sans-serif; font-weight:400; text-transform:none;"></span></div>
+      <div class="table-container">
+        <table>
+          <thead><tr><th>Gior.</th><th>Avversario</th><th>I miei pt</th><th>Avv. pt</th><th>Esito</th></tr></thead>
+          <tbody id="my-results"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/core.js"></script>
+  <script>
+    const session = Auth.requireAuth();
+    const team = Store.getTeam(session.userId);
+    const league = Store.getLeague();
+
+    UI.setNavUser(session, team);
+    document.getElementById('logout-btn').onclick = e => { e.preventDefault(); Auth.logout(); };
+    document.getElementById('nav-toggle').onclick = () => document.getElementById('nav-menu').classList.toggle('active');
+
+    document.getElementById('league-name').textContent = league?.name || 'Amici del Calcio';
+
+    const currentGd = team.currentMatchday;
+    const totalGds = 38;
+    let selectedGd = currentGd;
+
+    // Build select options
+    const sel = document.getElementById('matchday-select');
+    for (let i = 1; i <= totalGds; i++) {
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = `Giornata ${i}${i === currentGd ? ' (corrente)' : i < currentGd ? ' ✓' : ''}`;
+      if (i === currentGd) opt.selected = true;
+      sel.appendChild(opt);
+    }
+
+    // Generate deterministic matches for each matchday
+    const allTeamNames = (league?.teams || []).map(t => t.name);
+    if (!allTeamNames.includes(session.teamName)) allTeamNames.push(session.teamName);
+
+    function getMatchesForGd(gd) {
+      // Use team results for known GDs
+      const knownResult = team.results?.find(r => r.matchday === gd);
+      const matches = [];
+
+      // Pair up teams for this GD deterministically
+      for (let i = 0; i < allTeamNames.length; i += 2) {
+        const home = allTeamNames[i % allTeamNames.length];
+        const away = allTeamNames[(i + 1) % allTeamNames.length];
+        const isMyMatch = home === session.teamName || away === session.teamName;
+        const played = gd < currentGd;
+        const isMyMatch2 = played && knownResult;
+
+        let homePoints = null, awayPoints = null;
+        if (played) {
+          if (isMyMatch && knownResult) {
+            if (home === session.teamName) {
+              homePoints = knownResult.myPoints;
+              awayPoints = knownResult.oppPoints;
+            } else {
+              homePoints = knownResult.oppPoints;
+              awayPoints = knownResult.myPoints;
+            }
+          } else {
+            // Deterministic fake scores
+            const seed = gd * 31 + i * 7;
+            homePoints = 55 + (seed % 40);
+            awayPoints = 55 + ((seed * 13) % 40);
+          }
+        }
+
+        matches.push({ home, away, homePoints, awayPoints, played, isMyMatch });
+      }
+
+      return matches;
+    }
+
+    function renderMatchday(gd) {
+      const matches = getMatchesForGd(gd);
+      const container = document.getElementById('matches-container');
+
+      if (matches.length === 0) {
+        container.innerHTML = '<div class="empty-state"><div class="empty-icon">📅</div><h3>Nessuna partita</h3></div>';
+        return;
+      }
+
+      container.innerHTML = matches.map(m => {
+        const homeInit = m.home.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+        const awayInit = m.away.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+
+        let scoreHtml;
+        if (m.played && m.homePoints !== null) {
+          const homeWin = m.homePoints > m.awayPoints;
+          const awayWin = m.awayPoints > m.homePoints;
+          scoreHtml = `
+            <div class="match-score">
+              <span class="score-val ${homeWin ? 'text-green fw-bold' : ''}">${m.homePoints}</span>
+              <span class="score-sep">-</span>
+              <span class="score-val ${awayWin ? 'text-green fw-bold' : ''}">${m.awayPoints}</span>
+            </div>`;
+        } else if (gd === currentGd) {
+          scoreHtml = `<div class="match-score not-played">In corso</div>`;
+        } else {
+          scoreHtml = `<div class="match-score not-played">da giocare</div>`;
+        }
+
+        return `
+          <div class="match-card ${m.isMyMatch ? 'my-team-match' : ''}">
+            <div class="team-info">
+              <div class="match-badge">${homeInit}</div>
+              <span style="font-weight: ${m.isMyMatch && m.home === session.teamName ? '700' : '400'}; color: ${m.isMyMatch && m.home === session.teamName ? 'var(--green)' : 'var(--text)'}">
+                ${m.home}
+              </span>
+            </div>
+            ${scoreHtml}
+            <div class="team-info away">
+              <span style="font-weight: ${m.isMyMatch && m.away === session.teamName ? '700' : '400'}; color: ${m.isMyMatch && m.away === session.teamName ? 'var(--green)' : 'var(--text)'}">
+                ${m.away}
+              </span>
+              <div class="match-badge">${awayInit}</div>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    // My results history
+    document.getElementById('my-record').textContent = `${team.wins}V · ${team.draws}P · ${team.losses}S`;
+    document.getElementById('my-results').innerHTML = (team.results || []).map(r => {
+      const cls = r.result === 'win' ? 'text-green' : r.result === 'loss' ? 'text-red' : 'text-gold';
+      const badge = r.result === 'win' ? '✓ Vittoria' : r.result === 'loss' ? '✗ Sconfitta' : '= Pareggio';
+      return `
+        <tr>
+          <td class="fw-bold">G${r.matchday}</td>
+          <td>${r.opponent}</td>
+          <td class="num fw-bold text-green">${r.myPoints}</td>
+          <td class="num">${r.oppPoints}</td>
+          <td class="${cls} fw-bold">${badge}</td>
+        </tr>`;
+    }).join('') || '<tr><td colspan="5" class="text-muted" style="padding:16px; text-align:center;">Nessun risultato ancora.</td></tr>';
+
+    // Navigation
+    sel.addEventListener('change', function() {
+      selectedGd = parseInt(this.value);
+      renderMatchday(selectedGd);
+    });
+
+    document.getElementById('prev-gd').onclick = () => {
+      if (selectedGd > 1) {
+        selectedGd--;
+        sel.value = selectedGd;
+        renderMatchday(selectedGd);
+      }
+    };
+
+    document.getElementById('next-gd').onclick = () => {
+      if (selectedGd < totalGds) {
+        selectedGd++;
+        sel.value = selectedGd;
+        renderMatchday(selectedGd);
+      }
+    };
+
+    document.getElementById('go-current').onclick = () => {
+      selectedGd = currentGd;
+      sel.value = currentGd;
+      renderMatchday(currentGd);
+    };
+
+    renderMatchday(selectedGd);
+  </script>
+</body>
+</html>

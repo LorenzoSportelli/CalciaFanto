@@ -1,213 +1,201 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - FantaLega</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - FantaLega</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-brand">
-            <span class="logo-icon">⚽</span>
-            <span>FantaLega</span>
-        </div>
-        
-        <button class="nav-toggle" aria-label="Menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        
-        <ul class="nav-menu">
-            <li><a href="dashboard.html" class="active">Dashboard</a></li>
-            <li><a href="rosa.html">La mia rosa</a></li>
-            <li><a href="formazione.html">Formazione</a></li>
-            <li><a href="calendario.html">Calendario</a></li>
-            <li><a href="classifica.html">Classifica</a></li>
-            <li><a href="mercato.html">Mercato</a></li>
-        </ul>
-        
-        <div class="nav-user">
-            <span class="user-credits">💰 285</span>
-            <div class="user-avatar" title="FC Campioni">FC</div>
-            <a href="index.html" class="logout-btn">Esci</a>
-        </div>
-    </nav>
-    <div class="dashboard-container">
-        <!-- Welcome Section -->
-        <header class="dashboard-header">
-            <div class="welcome-section">
-                <h1>Benvenuto, <span class="team-name">FC Campioni</span>!</h1>
-                <p class="league-name">Lega: <strong>Amici del Calcio</strong></p>
-            </div>
-            <div class="current-matchday">
-                <span class="matchday-label">Giornata corrente</span>
-                <span class="matchday-number">15</span>
-            </div>
-        </header>
-        <!-- Stats Cards -->
-        <section class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon">🏅</div>
-                <div class="stat-content">
-                    <span class="stat-value">3°</span>
-                    <span class="stat-label">Posizione</span>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">📈</div>
-                <div class="stat-content">
-                    <span class="stat-value">847</span>
-                    <span class="stat-label">Punti totali</span>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">⚽</div>
-                <div class="stat-content">
-                    <span class="stat-value">72.5</span>
-                    <span class="stat-label">Media punti</span>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">🎯</div>
-                <div class="stat-content">
-                    <span class="stat-value">8-3-3</span>
-                    <span class="stat-label">V-P-S</span>
-                </div>
-            </div>
-        </section>
-        <!-- Main Content Grid -->
-        <div class="dashboard-grid">
-            <!-- Next Match -->
-            <section class="dashboard-card next-match">
-                <h2>Prossima partita</h2>
-                <div class="match-preview">
-                    <div class="team home">
-                        <div class="team-badge">FC</div>
-                        <span class="team-name">FC Campioni</span>
-                        <span class="team-position">3° - 847 pts</span>
-                    </div>
-                    <div class="match-info">
-                        <span class="match-vs">VS</span>
-                        <span class="match-date">Sab 26 Apr</span>
-                        <span class="match-time">15:00</span>
-                    </div>
-                    <div class="team away">
-                        <div class="team-badge">RM</div>
-                        <span class="team-name">Real Marmotte</span>
-                        <span class="team-position">5° - 798 pts</span>
-                    </div>
-                </div>
-                <a href="formazione.html" class="btn btn-primary">Schiera formazione</a>
-            </section>
-            <!-- Recent Results -->
-            <section class="dashboard-card recent-results">
-                <h2>Ultimi risultati</h2>
-                <div class="results-list">
-                    <div class="result-item win">
-                        <span class="result-matchday">G14</span>
-                        <span class="result-opponent">vs Inter Stellare</span>
-                        <span class="result-score">78 - 65</span>
-                        <span class="result-badge">V</span>
-                    </div>
-                    <div class="result-item win">
-                        <span class="result-matchday">G13</span>
-                        <span class="result-opponent">vs Juve Pazza</span>
-                        <span class="result-score">82 - 71</span>
-                        <span class="result-badge">V</span>
-                    </div>
-                    <div class="result-item loss">
-                        <span class="result-matchday">G12</span>
-                        <span class="result-opponent">vs Milan Magic</span>
-                        <span class="result-score">59 - 74</span>
-                        <span class="result-badge">S</span>
-                    </div>
-                    <div class="result-item draw">
-                        <span class="result-matchday">G11</span>
-                        <span class="result-opponent">vs Roma Thunder</span>
-                        <span class="result-score">68 - 68</span>
-                        <span class="result-badge">P</span>
-                    </div>
-                </div>
-            </section>
-            <!-- Mini Leaderboard -->
-            <section class="dashboard-card mini-leaderboard">
-                <h2>Classifica</h2>
-                <table class="leaderboard-table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Squadra</th>
-                            <th>Pt</th>
-                            <th>Diff</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Napoli United</td>
-                            <td>912</td>
-                            <td class="positive">+124</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Milan Magic</td>
-                            <td>876</td>
-                            <td class="positive">+89</td>
-                        </tr>
-                        <tr class="current-user">
-                            <td>3</td>
-                            <td>FC Campioni</td>
-                            <td>847</td>
-                            <td class="positive">+67</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Inter Stellare</td>
-                            <td>821</td>
-                            <td class="positive">+45</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Real Marmotte</td>
-                            <td>798</td>
-                            <td class="positive">+23</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <a href="classifica.html" class="btn btn-secondary">Vedi completa</a>
-            </section>
-            <!-- News/Notifications -->
-            <section class="dashboard-card notifications">
-                <h2>Notifiche</h2>
-                <ul class="notification-list">
-                    <li class="notification-item urgent">
-                        <span class="notif-icon">⚠️</span>
-                        <div class="notif-content">
-                            <p><strong>Formazione non inserita!</strong></p>
-                            <span class="notif-time">Scadenza: Sab 15:00</span>
-                        </div>
-                    </li>
-                    <li class="notification-item">
-                        <span class="notif-icon">💰</span>
-                        <div class="notif-content">
-                            <p>Mercato aperto fino a venerdì</p>
-                            <span class="notif-time">2 giorni fa</span>
-                        </div>
-                    </li>
-                    <li class="notification-item">
-                        <span class="notif-icon">📢</span>
-                        <div class="notif-content">
-                            <p>Vlahovic indisponibile per infortunio</p>
-                            <span class="notif-time">3 giorni fa</span>
-                        </div>
-                    </li>
-                </ul>
-            </section>
-        </div>
+  <nav class="navbar">
+    <a href="dashboard.html" class="nav-brand"><span class="logo-icon">⚽</span>FantaLega</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="dashboard.html" class="active">Dashboard</a></li>
+      <li><a href="rosa.html">La mia rosa</a></li>
+      <li><a href="formazione.html">Formazione</a></li>
+      <li><a href="calendario.html">Calendario</a></li>
+      <li><a href="classifica.html">Classifica</a></li>
+      <li><a href="mercato.html">Mercato</a></li>
+    </ul>
+    <div class="nav-user">
+      <span class="user-credits">💰 —</span>
+      <div class="user-avatar">—</div>
+      <a href="#" class="logout-btn" id="logout-btn">Esci</a>
     </div>
-    <script src="js/app.js"></script>
+  </nav>
+
+  <div class="dashboard-container">
+    <header class="dashboard-header">
+      <div>
+        <h1>Benvenuto, <span id="team-name">—</span>!</h1>
+        <p class="league-name">Lega: <strong id="league-name">—</strong></p>
+      </div>
+      <div class="current-matchday">
+        <span class="matchday-label">Giornata</span>
+        <span class="matchday-number" id="current-gd">—</span>
+      </div>
+    </header>
+
+    <!-- Stats Cards -->
+    <section class="stats-grid" id="stats-grid">
+      <!-- filled by JS -->
+    </section>
+
+    <!-- Main Grid -->
+    <div class="dashboard-grid">
+      <!-- Next Match -->
+      <section class="dashboard-card next-match">
+        <h2>Prossima partita</h2>
+        <div id="next-match-content"></div>
+        <a href="formazione.html" class="btn btn-primary" style="margin-top:12px; width:100%; justify-content:center;">Schiera formazione</a>
+      </section>
+
+      <!-- Recent Results -->
+      <section class="dashboard-card recent-results">
+        <h2>Ultimi risultati</h2>
+        <div class="results-list" id="results-list"></div>
+      </section>
+
+      <!-- Mini Leaderboard -->
+      <section class="dashboard-card mini-leaderboard">
+        <h2>Classifica</h2>
+        <div class="table-container">
+          <table class="leaderboard-table">
+            <thead><tr><th>#</th><th>Squadra</th><th>Pt</th><th>Diff</th></tr></thead>
+            <tbody id="mini-leaderboard"></tbody>
+          </table>
+        </div>
+        <a href="classifica.html" class="btn btn-secondary" style="margin-top:12px;">Vedi completa</a>
+      </section>
+
+      <!-- Notifications -->
+      <section class="dashboard-card notifications">
+        <h2>Notifiche</h2>
+        <ul class="notification-list" id="notifications-list"></ul>
+      </section>
+    </div>
+  </div>
+
+  <script src="js/core.js"></script>
+  <script>
+    const session = Auth.requireAuth();
+    if (!session) throw new Error('Not logged in');
+
+    const team = Store.getTeam(session.userId);
+    const league = Store.getLeague();
+
+    // Nav
+    UI.setNavUser(session, team);
+    document.getElementById('logout-btn').onclick = e => { e.preventDefault(); Auth.logout(); };
+    document.getElementById('nav-toggle').onclick = () => document.getElementById('nav-menu').classList.toggle('active');
+
+    // Header
+    document.getElementById('team-name').textContent = session.teamName;
+    document.getElementById('league-name').textContent = league?.name || 'Amici del Calcio';
+    document.getElementById('current-gd').textContent = team.currentMatchday;
+
+    // Stats
+    const position = (league?.teams || []).sort((a,b) => b.points - a.points).findIndex(t => t.id === team.id) + 1;
+    const avgPts = team.results.length > 0
+      ? (team.results.reduce((s,r) => s + r.myPoints, 0) / team.results.length).toFixed(1)
+      : '—';
+
+    document.getElementById('stats-grid').innerHTML = `
+      <div class="stat-card"><div class="stat-icon">🏅</div><div class="stat-content"><span class="stat-value">${position > 0 ? position + '°' : '—'}</span><span class="stat-label">Posizione</span></div></div>
+      <div class="stat-card"><div class="stat-icon">📈</div><div class="stat-content"><span class="stat-value">${team.points}</span><span class="stat-label">Punti totali</span></div></div>
+      <div class="stat-card"><div class="stat-icon">⚽</div><div class="stat-content"><span class="stat-value">${avgPts}</span><span class="stat-label">Media punti</span></div></div>
+      <div class="stat-card"><div class="stat-icon">🎯</div><div class="stat-content"><span class="stat-value">${team.wins}-${team.draws}-${team.losses}</span><span class="stat-label">V-P-S</span></div></div>
+    `;
+
+    // Next match
+    const sortedTeams = [...(league?.teams || [])].sort((a,b) => b.points - a.points);
+    const myPos = sortedTeams.findIndex(t => t.id === team.id);
+    const opponentIdx = (myPos + 1) % sortedTeams.length;
+    const opponent = sortedTeams[opponentIdx] || sortedTeams[0];
+    const oppInitials = opponent.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+    const myInitials = session.teamName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+
+    document.getElementById('next-match-content').innerHTML = `
+      <div class="match-preview">
+        <div class="team home">
+          <div class="team-badge">${myInitials}</div>
+          <span class="team-name">${session.teamName}</span>
+          <span class="team-position">${position > 0 ? position + '°' : '—'} · ${team.points} pt</span>
+        </div>
+        <div class="match-info">
+          <span class="match-vs">VS</span>
+          <span class="match-date">Giornata ${team.currentMatchday}</span>
+        </div>
+        <div class="team away">
+          <div class="team-badge">${oppInitials}</div>
+          <span class="team-name">${opponent.name}</span>
+          <span class="team-position">${opponentIdx + 1}° · ${opponent.points} pt</span>
+        </div>
+      </div>
+    `;
+
+    // Results
+    const resultsHTML = [...team.results].reverse().slice(0, 4).map(r => {
+      const cls = r.result === 'win' ? 'win' : r.result === 'loss' ? 'loss' : 'draw';
+      const badge = r.result === 'win' ? 'V' : r.result === 'loss' ? 'S' : 'P';
+      return `
+        <div class="result-item ${cls}">
+          <span class="result-matchday">G${r.matchday}</span>
+          <span class="result-opponent">vs ${r.opponent}</span>
+          <span class="result-score">${r.myPoints} - ${r.oppPoints}</span>
+          <span class="result-badge">${badge}</span>
+        </div>`;
+    }).join('');
+    document.getElementById('results-list').innerHTML = resultsHTML || '<p class="text-muted" style="font-size:13px; padding:8px;">Nessun risultato ancora.</p>';
+
+    // Mini leaderboard
+    const allTeams = [...sortedTeams];
+    // Mostra top 5 con la tua squadra sempre visibile
+    const myTeamInTop5 = allTeams.slice(0, 5).some(t => t.id === team.id);
+    let display = allTeams.slice(0, myTeamInTop5 ? 5 : 4);
+    if (!myTeamInTop5) {
+      const myTeam = allTeams.find(t => t.id === team.id);
+      if (myTeam) display.push(myTeam);
+    }
+
+    document.getElementById('mini-leaderboard').innerHTML = display.map((t, i) => {
+      const pos = allTeams.findIndex(x => x.id === t.id) + 1;
+      const diff = t.gf - t.ga;
+      const isMe = t.id === team.id;
+      return `
+        <tr class="${isMe ? 'current-user' : ''}">
+          <td>${pos}</td>
+          <td>${t.name}${isMe ? ' 👈' : ''}</td>
+          <td>${t.points}</td>
+          <td class="${diff >= 0 ? 'positive' : 'negative'}">${diff >= 0 ? '+' : ''}${diff}</td>
+        </tr>`;
+    }).join('');
+
+    // Notifications
+    const notifications = [];
+    if (team.lineup && Object.keys(team.lineup).length > 0) {
+      notifications.push({ icon: '✅', text: 'Formazione inserita per la giornata ' + team.currentMatchday, time: 'Aggiornato', urgent: false });
+    } else {
+      notifications.push({ icon: '⚠️', text: '<strong>Formazione non inserita!</strong> Hai tempo fino a sabato.', time: 'Scade presto', urgent: true });
+    }
+    if (team.credits > 0) {
+      notifications.push({ icon: '💰', text: `Hai <strong>${team.credits} crediti</strong> disponibili per il mercato.`, time: 'Mercato aperto', urgent: false });
+    }
+    const rosterCount = team.rosterIds?.length || 0;
+    if (rosterCount < 15) {
+      notifications.push({ icon: '📋', text: `Rosa incompleta: hai ${rosterCount}/15 giocatori.`, time: 'Acquista al mercato', urgent: true });
+    }
+    notifications.push({ icon: '📢', text: `Prossima sfida: <strong>${opponent.name}</strong> alla Giornata ${team.currentMatchday}.`, time: 'Lega aggiornata', urgent: false });
+
+    document.getElementById('notifications-list').innerHTML = notifications.map(n => `
+      <li class="notification-item ${n.urgent ? 'urgent' : ''}">
+        <span class="notif-icon">${n.icon}</span>
+        <div class="notif-content">
+          <p>${n.text}</p>
+          <span class="notif-time">${n.time}</span>
+        </div>
+      </li>`).join('');
+  </script>
 </body>
 </html>
